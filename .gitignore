@@ -2,5 +2,10 @@
 servidor - romaneo/node_modules/
 
 node_modules/
+<<<<<<< HEAD
 /.project
 /.gitignore
+=======
+
+cliente/build/
+>>>>>>> branch 'master' of https://github.com/emanuelbalcazar/sistema-romaneo.git
