@@ -1,0 +1,6 @@
+{
+    "serverUrl": "amqp://localhost:5672/server",
+    "serverQueue": "server",
+    "clientUrl": "amqp://localhost:5672/client",
+    "clientQueue": "client"
+}
