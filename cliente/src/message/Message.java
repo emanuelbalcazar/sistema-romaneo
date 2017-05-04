@@ -3,19 +3,17 @@ package message;
 import java.util.Date;
 
 /**
- * Implementacion abstracta de un mensaje.
- * Todos los mensajes tienen en comun los atributos definidos en esta clase.
- * Implementa la interface Comparable para facilitar la priorizacion de los mensajes.
- * 
+ * Representa un mensaje enviado desde un dispositivo movil asociado a Romaneo
+ *
+ * @version 1.0
  */
 public abstract class Message implements Comparable<Message> {
 
     private int id;
-    private int imei;  // identificador unico del dispositivo.
+    private int imei;
     private int priority;
     private String type;
-    private String subtype;
-    private String operation; // operacion del mensaje (crear o actualizar).
+    private String operation;
     private Date timestamp;
 
     public Message() {
@@ -38,10 +36,6 @@ public abstract class Message implements Comparable<Message> {
         this.type = type;
     }
 
-    public void setSubtype(String subtype) {
-        this.subtype = subtype;
-    }
-
     public void setOperation(String operation) {
         this.operation = operation;
     }
@@ -52,10 +46,6 @@ public abstract class Message implements Comparable<Message> {
 
     public int getId() {
         return id;
-    }
-
-    public String getSubtype() {
-        return subtype;
     }
 
     public int getImei() {
@@ -77,18 +67,13 @@ public abstract class Message implements Comparable<Message> {
     public Date getTimestamp() {
         return timestamp;
     }
-    
-    /**
-     * Implementacion de la comparacion entre mensajes.
-     * @param other mensaje contra el cual comparar.
-     *
-     */
+
     @Override
-    public int compareTo(Message other) {
-        if (this.priority == other.getPriority()) {
+    public int compareTo(Message o) {
+        if (this.priority == o.getPriority()) {
             return 0;
         }
-        return (this.priority < other.getPriority()) ? 1 : -1;
+        return (this.priority < o.getPriority()) ? 1 : -1;
     }
 
     @Override

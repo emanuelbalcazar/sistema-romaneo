@@ -3,6 +3,7 @@ package message;
 /**
  * Representa un mensaje relacionado a un Fardo.
  * 
+ * @author emanuel
  */
 public class BaleMessage extends Message {
 

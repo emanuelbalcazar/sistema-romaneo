@@ -1,25 +1,20 @@
 package messageGenerator;
 
-import message.Priority;
+import message.Message;
 import message.RomaneoMessage;
-import message.SubTypes;
-import message.Types;
 
 /**
- * Implementacion del generador de mensajes de tipo Romaneo.
- * 
+ *
+ * @author emanuel
  */
 public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
-    
-    private final int SLEEP_TIME = 5000;
-    private int id = 0; // TODO - remover, solo temporal.
 
     public RomaneoMessageGenerator() {
-        
+
     }
 
     /**
-     * Inicia la ejecucion del hilo.
+     * Execute thread
      */
     @Override
     public void start() {
@@ -36,30 +31,23 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
             generateMessage();
         }
     }
-    
-    /**
-     * Duerme al hilo por un tiempo determinado.
-     */
+
     private void waitTime() {
         try {
-            Thread.sleep(SLEEP_TIME);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             System.err.println(ex.getMessage());
         }
     }
-    
-    /**
-     * Genera un mensaje y se lo pasa al Manejador de Colas.
-     */
+
     private void generateMessage() {
         RomaneoMessage msg = new RomaneoMessage();
-        msg.setId(++id);
+        msg.setId(1);
         msg.setImei(1);
-        msg.setType(Types.ROMANEO.getType());
-        msg.setSubtype(SubTypes.START_ROMANEO.getSubType());
-        msg.setPriority(Priority.HIGH_PRIORITY.getPriority());
+        msg.setType("ROMANEO");
+        msg.setPriority(2);
         msg.setEstablishment("UNPSJB");
-        msg.setProducer("Carlos Emanuel Balcazar");
+        
         management.addMessageToSend(msg);
     }
 
