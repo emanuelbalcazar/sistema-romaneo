@@ -1,10 +1,9 @@
 package messageGenerator;
 
-import messageAdministrator.QueueManagement;
-
 /**
- *
- * @author emanuel
+ * Implementacion abstracta de un generador de mensajes.
+ * Todos los generadores reciben una referencia a un objeto en comun donde
+ * deben colocar los mensajes generados a eso se debe esta abstraccion.
  */
 public abstract class MessageGeneratorGeneric implements Runnable {
     
@@ -15,10 +14,19 @@ public abstract class MessageGeneratorGeneric implements Runnable {
         
     }
     
+    /**
+     * Setea al generador una referencia al objeto encargado de administrar
+     * las colas de mensajes.
+     * @param management manejador de colas.
+     */
     public void setQueueManagement(QueueManagement management) {
         this.management = management;
     }
     
+    /**
+     * Metodo abstracto a implementar por cada generador individual.
+     * Este metodo inicia la ejecucion del generador de mensajes.
+     */
     public abstract void start();
     
 }

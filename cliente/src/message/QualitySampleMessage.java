@@ -3,7 +3,6 @@ package message;
 /**
  *  Representa un mensaje relacionado a la Muestra de Calidad.
  * 
- * @author emanuel
  */
 public class QualitySampleMessage extends Message {
 

@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package messageAdministrator;
+package administrator;
 
+import messageGenerator.QueueManagement;
 import connectivity.ConnectivitySimulator;
 import message.Message;
-import messageGenerator.MessageGenerator;
-import messageGenerator.MessageGeneratorImple;
+import messageGenerator.GeneratorEngine;
+import messageGenerator.GeneratorEngineImple;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Administrator implements Runnable {
 
     private final ConnectivitySimulator connectivitySimulator;
     private final QueueManagement queueManagement;
-    private final MessageGenerator generators;
+    private final GeneratorEngine generators;
     private final Sender sender;
     private Thread thread;
 
@@ -26,7 +27,7 @@ public class Administrator implements Runnable {
         this.connectivitySimulator = new ConnectivitySimulator();
         this.queueManagement = new QueueManagement();
         this.sender = new Sender();
-        this.generators = new MessageGeneratorImple(queueManagement);
+        this.generators = new GeneratorEngineImple(queueManagement);
     }
 
     public void start() {

@@ -1,20 +1,19 @@
 package message;
 
 /**
- *  Representa un mensaje relacionado a un Romaneo.
- * 
- * @author emanuel
+ * Representa un mensaje relacionado a un Romaneo.
+ *
  */
 public class RomaneoMessage extends Message {
-   
+
     private int idRomaneo;
     private String producer;    // Productor
     private String establishment;   // Establecimiento
     private String contractor;  // Contratista
     private int amountOfAnimals;    // Cantidad de animales
-    
+
     public RomaneoMessage() {
-    
+
     }
 
     public void setIdRomaneo(int idRomaneo) {
