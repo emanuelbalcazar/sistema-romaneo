@@ -5,7 +5,7 @@
 var factory = require('./administratorFactory');
 
 exports.setMessage = function(message) {
-    var administrator = factory.getAdministrator(message.type);
+    var administrator = factory.getAdministrator(message.type.toLowerCase());
 
     if (administrator) {
         console.log('Tipo de administrator creado: ' + administrator.getType());

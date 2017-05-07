@@ -1,0 +1,6 @@
+{
+    "properties": {
+        "longitude": {"type": "number"},
+        "latitude": {"type": "string"}
+    }
+}

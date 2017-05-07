@@ -4,6 +4,7 @@
   "description": "plataforma de mensajeria",
   "main": "server.js",
   "dependencies": {
+    "ajv": "^5.0.1",
     "amqplib": "^0.5.1",
     "async": "^2.1.5",
     "express": "^4.15.2",

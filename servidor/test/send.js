@@ -14,7 +14,9 @@ amqp.connect(serverUrl, function(err, conn) {
     conn.createChannel(function(err, ch) {
         var message = {};
         message.text = process.argv.slice(2).join(' ') || 'Hello World!';
-        message.type = 'geolocalizacion'
+        message.type = 'geolocalizacion';
+        message.latitude = 2342342;
+        message.longitude = 3432342;
 
         ch.assertQueue(serverQueue, {durable: true});
         ch.sendToQueue(serverQueue, new Buffer(JSON.stringify(message)));
