@@ -5,7 +5,7 @@
  */
 package simulator;
 
-import messageAdministrator.Administrator;
+import administrator.Administrator;
 
 /**
  *

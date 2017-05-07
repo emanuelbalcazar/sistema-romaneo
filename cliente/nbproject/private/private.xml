@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/emanuel/NetBeansProjects/Romaneo%20-%20Cliente%20(version%200)/src/configuration/Configuration.java</file>
-            <file>file:/home/emanuel/NetBeansProjects/Romaneo%20-%20Cliente%20(version%200)/src/messageAdministrator/Sender.java</file>
-            <file>file:/home/emanuel/NetBeansProjects/Romaneo%20-%20Cliente%20(version%200)/config.properties</file>
+            <file>file:/home/emanuel/sistema-romaneo/cliente/src/administrator/QueueManagement.java</file>
+            <file>file:/home/emanuel/sistema-romaneo/cliente/src/administrator/Sender.java</file>
+            <file>file:/home/emanuel/sistema-romaneo/cliente/src/administrator/Administrator.java</file>
+            <file>file:/home/emanuel/sistema-romaneo/cliente/src/generators/RomaneoMessageGenerator.java</file>
         </group>
     </open-files>
 </project-private>
