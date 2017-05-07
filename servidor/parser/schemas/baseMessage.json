@@ -1,0 +1,9 @@
+{
+    "properties": {
+        "id": {"type": "number"},
+        "imei": {"type": "number"},
+        "priority": {"type": "number"},
+        "type": {"type": "string"},
+        "operation": {"type": "number"}
+    }
+}

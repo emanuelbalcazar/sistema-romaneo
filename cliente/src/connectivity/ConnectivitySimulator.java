@@ -3,8 +3,9 @@ package connectivity;
 import java.util.Random;
 
 /**
- *
- * @author emanuel
+ * Simulador de connectividad, simula aleatoriamente la conectividad
+ * del dispositivo.
+ * 
  */
 public class ConnectivitySimulator implements Runnable {
     

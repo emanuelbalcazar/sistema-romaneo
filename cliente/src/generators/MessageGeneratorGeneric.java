@@ -1,10 +1,10 @@
-package messageGenerator;
+package generators;
 
-import messageAdministrator.QueueManagement;
+import administrator.QueueManagement;
 
 /**
- *
- * @author emanuel
+ * Abstraccion generica de un generador de mensajes.
+ * Todos los generadores de mensajes extienden de esta clase.
  */
 public abstract class MessageGeneratorGeneric implements Runnable {
     

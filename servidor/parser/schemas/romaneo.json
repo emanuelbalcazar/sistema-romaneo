@@ -1,0 +1,15 @@
+{
+    "properties": {
+        "producer": {"type": "string"},
+        "establishment": {"type": "string"},
+        "contractor": {"type": "string"},
+        "amountOfAnimals": {"type": "string"},
+        "weight": {"type": "number"},
+        "category": {"type": "string"},
+        "woolType": {"type": "string"},
+        "categoryOfAnimal": {"type": "string"},
+        "woolenClass": {"type": "number"},
+        "quantityBalesSampled": {"type": "number"},
+        "numberOfSamplesTaken": {"type": "number"}
+    }
+}

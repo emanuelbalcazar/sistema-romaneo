@@ -1,16 +1,19 @@
-package messageGenerator;
+package generators;
 
-import message.Message;
+import message.Priority;
 import message.RomaneoMessage;
+import message.Type;
 
 /**
- *
- * @author emanuel
+ * Implementacion de un generador de mensajes de tipo Romaneo.
+ * 
  */
 public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
-
+    
+    private int id; // TODO - remover en el proximo refactor
+    
     public RomaneoMessageGenerator() {
-
+        this.id = 0;
     }
 
     /**
@@ -42,10 +45,11 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
 
     private void generateMessage() {
         RomaneoMessage msg = new RomaneoMessage();
-        msg.setId(1);
+        msg.setId(++id);
         msg.setImei(1);
-        msg.setType("ROMANEO");
-        msg.setPriority(2);
+        msg.setType(Type.ROMANEO.getType());
+        msg.setOperation("Inicio de Romaneo");
+        msg.setPriority(Priority.HIGH_PRIORITY.getPriority());
         msg.setEstablishment("UNPSJB");
         
         management.addMessageToSend(msg);

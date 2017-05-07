@@ -29,13 +29,12 @@ exports.startConsumer = function() {
         if (err) throw err;
 
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
-
             ch.assertQueue(serverQueue, {durable: true});
             console.log(" [*] Waiting for messages in %s. To exit press CTRL + C ", serverQueue);
 
             ch.consume(serverQueue, function(msg) { // consumo un mensaje
                 let message = JSON.parse(msg.content);
-                console.log(" [x] Received %s ", JSON.stringify(message));
+                console.log(" [x] Recibido %s ", JSON.stringify(message));
                 parser.setMessage(message);
             }, {noAck: false});
         });
@@ -45,14 +44,13 @@ exports.startConsumer = function() {
 // Publica un mensaje en la cola del cliente de parte del servidor.
 exports.publishMessage = function(message) {
 
-    amqp.connect(clientQueue, function(err, conn) {   // inicio la conexion a rabbitmq
+    amqp.connect(clientUrl, function(err, conn) {   // inicio la conexion a rabbitmq
         if (err) throw err;
 
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
-
             ch.assertQueue(clientQueue, {durable: true});
             ch.sendToQueue(clientQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
-            console.log(" [x] Sent %s", JSON.stringify(message));
+            console.log(" [x] Publicado %s", JSON.stringify(message));
         });
     });
 }
