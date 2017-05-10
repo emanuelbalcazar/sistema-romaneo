@@ -7,6 +7,7 @@ var factory = require('./administratorFactory');
 exports.setMessage = function(message) {
 
     var administrator = factory.getAdministrator(message.type.toLowerCase());
+    
     if (administrator) {
         administrator.receivedMessage(message);
     } else {
