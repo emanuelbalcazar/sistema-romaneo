@@ -33,10 +33,11 @@ exports.startConsumer = function() {
             console.log(" [*] Waiting for messages in %s. To exit press CTRL + C ", serverQueue);
 
             ch.consume(serverQueue, function(msg) { // consumo un mensaje
-                let message = JSON.parse(msg.content);
+                var message = JSON.parse(msg.content);
                 console.log(" [x] Recibido %s ", JSON.stringify(message));
                 parser.setMessage(message);
-            }, {noAck: false});
+
+            }, {noAck: true});
         });
     });
 }
