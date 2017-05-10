@@ -18,9 +18,17 @@ public class GeneratorEngineImple implements GeneratorEngine {
     
     @Override
     public void startGenerators() {
-        MessageGeneratorGeneric romaneo = new RomaneoMessageGenerator();
-        romaneo.setQueueManagement(queueManagement);
-        romaneo.start();
+        
+//        /*Intancia del generador de mensajes de romaneo y ejecucion
+//        del mismo*/
+//        MessageGeneratorGeneric romaneo = new RomaneoMessageGenerator();
+//        romaneo.setQueueManagement(queueManagement);
+//        romaneo.start();
+//        /*Intancia del generador de mensajes de texto comun y ejecucion
+//        del mismo*/
+        MessageGeneratorGeneric texto = new TextMessageGenerator();
+        texto.setQueueManagement(queueManagement);
+        texto.start();
     }
     
 }

@@ -4,7 +4,7 @@ package message;
  * Representa un mensaje de texto comun.
  *
  */
-public class TextMessage {
+public class TextMessage extends Message{
 
     private String text;
 
