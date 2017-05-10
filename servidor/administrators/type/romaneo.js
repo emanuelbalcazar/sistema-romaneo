@@ -5,3 +5,7 @@
 exports.getType = function() {
     return 'romaneo';
 }
+
+exports.receivedMessage = function(message) {
+    console.log('\nSe genero la sentencia insert del mensaje ROMANEO: ', message);
+}

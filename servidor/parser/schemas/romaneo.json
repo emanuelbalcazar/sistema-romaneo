@@ -3,7 +3,7 @@
         "producer": {"type": "string"},
         "establishment": {"type": "string"},
         "contractor": {"type": "string"},
-        "amountOfAnimals": {"type": "string"},
+        "amountOfAnimals": {"type": "number"},
         "weight": {"type": "number"},
         "category": {"type": "string"},
         "woolType": {"type": "string"},
