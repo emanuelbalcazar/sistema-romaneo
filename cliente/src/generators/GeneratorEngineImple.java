@@ -16,16 +16,27 @@ public class GeneratorEngineImple implements GeneratorEngine {
     }
     
     
-    @Override
+   /** @Override
     public void startGenerators() {
         
         MessageGeneratorGeneric romaneo = new RomaneoMessageGenerator();
         romaneo.setQueueManagement(queueManagement);
         romaneo.start();
+<<<<<<< Updated upstream
 
         MessageGeneratorGeneric texto = new TextMessageGenerator();
         texto.setQueueManagement(queueManagement);
         texto.start();
+=======
+    }*/
+    
+    @Override
+    public void startGenerators() {
+        MessageGeneratorGeneric geo = new GeolocationMessageGenerator();
+        geo.setQueueManagement(queueManagement);
+        geo.start();
+>>>>>>> Stashed changes
     }
+    
     
 }
