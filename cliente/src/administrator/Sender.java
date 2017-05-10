@@ -56,6 +56,7 @@ public class Sender {
         try {
             Gson gson = new Gson();
             String messageJson = gson.toJson(msg);
+            System.out.println("Enviado: " + messageJson);
             channel.basicPublish("", SERVER_QUEUE, null, messageJson.getBytes());
         } catch (IOException ex) {
             System.err.println("Error al enviar el mensaje: " + ex.getMessage());

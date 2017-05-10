@@ -91,7 +91,6 @@ public class Administrator implements Runnable {
     private void sentStatus(boolean send, Message msg) {
         if (send) {
             queueManagement.setMessageSent(msg);
-            System.out.println("Enviado mensaje : " + msg);
         } else {
             System.err.println("El mensaje no pudo ser enviado");
         }
