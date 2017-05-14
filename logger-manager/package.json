@@ -1,0 +1,27 @@
+{
+  "name": "logger",
+  "version": "1.0.0",
+  "description": "administrador de logs del sistema de romaneo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "migrate": "node ./database/config/migrate.js migrate",
+    "rollback": "node ./database/config/migrate.js rollback",
+    "create": "node ./database/config/migrate.js create"
+  },
+  "keywords": [
+    "manager",
+    "logger"
+  ],
+  "author": "Alamo Nahuel, Balcazar Carlos Emanuel, Bobadilla Lucas Matias",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.1",
+    "async": "^2.4.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "request": "^2.81.0",
+    "sequelize": "^3.30.4",
+    "sqlite3": "^3.1.8"
+  }
+}
