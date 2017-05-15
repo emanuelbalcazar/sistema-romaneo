@@ -6,10 +6,11 @@ var sequelize = require('../database/connection').sequelize;
 
 // Defino el esquema del Log para realizar el mapeo a la tabla correspondiente.
 var Log = sequelize.define('logs', {
-    id: {type: Type.INTEGER, primaryKey: true},
+    id: {type: Type.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true},
     id_msg: {type: Type.INTEGER},
     imei: {type: Type.INTEGER},
     source: {type: Type.STRING},
+    target: {type: Type.STRING},
     level: {type: Type.STRING},
     type_msg: {type: Type.STRING},
     description: {type: Type.STRING},

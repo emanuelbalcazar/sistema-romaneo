@@ -2,7 +2,7 @@
 var amqp = require('amqplib/callback_api');
 var loggerUrl = require('../config_files/rabbit-config.json').loggerUrl;
 var loggerQueue = require('../config_files/rabbit-config.json').loggerQueue;
-
+var logRecord = require('../models/logRecord').Log;
 
 // Inicia el consumo de mensajes desde la cola del logger-manager en RabbitMQ.
 exports.startConsumer = function() {
@@ -26,5 +26,9 @@ exports.startConsumer = function() {
 
 // Persiste el mensaje de tipo Log en la base de datos.
 function persistMessage(message) {
+
+    logRecord.create(message).then(function(data) {
+        console.log('insertado');
+    })
 
 }

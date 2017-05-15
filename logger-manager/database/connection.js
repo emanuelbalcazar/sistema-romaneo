@@ -11,7 +11,7 @@ var sequelize = new Sequelize('database', '', '', {
     dialect: 'sqlite',
     storage: __dirname + '/file/logger.sqlite',
     define: {
-        timestamps: false,
+        timestamps: false
     }
 });
 

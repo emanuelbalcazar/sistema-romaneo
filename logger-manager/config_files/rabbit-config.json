@@ -1,4 +1,4 @@
 {
     "loggerUrl": "amqp://localhost:5672/",
-    "loggerQueue": "logger",
+    "loggerQueue": "logger"
 }

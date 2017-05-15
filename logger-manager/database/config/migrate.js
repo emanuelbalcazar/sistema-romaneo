@@ -402,6 +402,7 @@ Encoders['mysql'] = function() {
     // type, limit, precision, scale
     var type = null;
 
+
     if (column.type == 'integer') {
       if (column.limit == 1)
         type = "TINYINT";
@@ -596,6 +597,11 @@ Encoders['sqlite3'] = function() {
     // type, limit, precision, scale
     var type = null;
 
+    if (column.name == 'id') {
+        type = 'INTEGER PRIMARY KEY AUTOINCREMENT'
+        return type;
+    }
+
     if (column.type == 'integer') {
       if (column.limit == 1)
         type = "TINYINT";
@@ -629,6 +635,10 @@ Encoders['sqlite3'] = function() {
 
     if (column.not_null)
       type += ' NOT NULL';
+
+    if (column.auto_increment) {
+        type += ' AUTO_INCREMENT';
+    }
 
     if (column.default_value) {
       type += ' DEFAULT ';

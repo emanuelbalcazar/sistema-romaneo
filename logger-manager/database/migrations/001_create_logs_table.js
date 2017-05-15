@@ -5,7 +5,7 @@ var create_logs_table = new Migration({
 
 	up: function() {
 		this.create_table('logs', function(table) {
-			table.integer('id'); // id log
+			table.integer('id', 'INTEGER', {not_null: true}); // id log
 			table.integer('id_msg');  // id message
 			table.integer('imei');  // imei device
 			table.string('source');  // client or servers
@@ -14,7 +14,6 @@ var create_logs_table = new Migration({
 			table.string('type_msg');  // error, ack, romaneo, geolocalizacion, etc.
 			table.string('description');
 			table.datetime('timestamp');
-			table.primary_key('id');
 		});
 	},
 
