@@ -13,7 +13,8 @@ amqp.connect(serverUrl, function(err, conn) {
 
     conn.createChannel(function(err, ch) {
         var message = {};
-        message.text = process.argv.slice(2).join(' ') || 'Hello World!';
+        message.id = 1;
+        message.imei = 1;
         message.type = 'geolocalizacion';
         message.latitude = 2342342;
         message.longitude = 3432342;

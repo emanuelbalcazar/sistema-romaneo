@@ -7,7 +7,7 @@ var express = require('express');
 var app = express();
 
 app.use(router);
-app.set('host', appHost)
+app.set('host', appHost);
 app.set('port', appPort);
 
 app.listen(app.get('port'), function() {

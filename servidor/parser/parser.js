@@ -7,7 +7,8 @@ var validator = require('./validator');
 var baseSchema = require('./schemas/baseMessage.json');
 var rabbitmq = require('../rabbitmq/rabbitmq-api');
 
-var errorPriority = require('../config_files/message-config.json').errorPriority;
+var maxPriority = require('../config_files/message-config.json').maxPriority;
+var id = 0;
 
 // Valida el formato del mensaje recibido.
 // TODO - posiblemente, utilizemos el async para procesar multiples mensajes
@@ -36,15 +37,18 @@ function validateTypeMessage(message) {
 // Genera un mensaje de error de formato invalido y lo envia a encolar
 // en RabbitMQ con maxima prioridad.
 function generateErrorMessage(error, message) {
-    var id = 0;
 
     var errorMessage = {
         id: ++id,
-        priority : errorPriority,
+        priority : maxPriority,
         type: 'error',
-        message: error,
+        id_msg: message.id,
+        type_msg: message.type,
+        imei: message.imei,
+        description: error,
         timestamp: new Date()
     }
+
     console.error('Error ' + JSON.stringify(errorMessage) + ' en el mensaje ' + message.type);
     rabbitmq.publishMessage(errorMessage);
 }

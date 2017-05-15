@@ -1,9 +1,13 @@
 // rabbitmq-api.js - intermediario entre la aplicacion servidor y RabbitMQ.
 var amqp = require('amqplib/callback_api');
 var serverUrl = require('../config_files/rabbit-config.json').serverUrl;
-var serverQueue = require('../config_files/rabbit-config.json').serverQueue;
 var clientUrl = require('../config_files/rabbit-config.json').clientUrl;
+var loggerUrl = require('../config_files/rabbit-config.json').loggerUrl;
+
+var serverQueue = require('../config_files/rabbit-config.json').serverQueue;
 var clientQueue = require('../config_files/rabbit-config.json').clientQueue;
+var loggerQueue = require('../config_files/rabbit-config.json').loggerQueue;
+
 var parser = require('../parser/parser');
 
 
@@ -51,7 +55,20 @@ exports.publishMessage = function(message) {
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
             ch.assertQueue(clientQueue, {durable: true});
             ch.sendToQueue(clientQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
-            console.log(" [x] Publicado %s", JSON.stringify(message));
+            console.log(" [x] Publicado %s en %s", JSON.stringify(message), clientQueue);
+        });
+    });
+}
+
+// Publica un mensaje de log en la cola del logger.
+exports.publishLoggerMessage = function(message) {
+    amqp.connect(loggerUrl, function(err, conn) {   // inicio la conexion a rabbitmq
+        if (err) throw err;
+
+        conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
+            ch.assertQueue(loggerQueue, {durable: true});
+            ch.sendToQueue(loggerQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
+            console.log(" [x] Publicado Logger %s en %s", JSON.stringify(message), loggerQueue);
         });
     });
 }
