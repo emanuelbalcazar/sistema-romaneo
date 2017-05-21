@@ -17,12 +17,14 @@ public class Administrator implements Runnable {
     private final GeneratorEngine generators;
     private final Sender sender;
     private Thread thread;
+    private int imei;
 
     public Administrator(int imei) {
         this.connectivitySimulator = new ConnectivitySimulator();
         this.queueManagement = new QueueManagement();
         this.sender = new Sender();
         this.generators = new GeneratorEngineImple(queueManagement);
+        this.imei = imei;
     }
     
     /**
@@ -44,6 +46,7 @@ public class Administrator implements Runnable {
      */
     private void inicialize() {
         sender.connect();
+        generators.setImei(imei);
         generators.startGenerators();
         connectivitySimulator.start();
     }

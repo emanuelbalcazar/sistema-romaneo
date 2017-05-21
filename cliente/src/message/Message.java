@@ -13,6 +13,7 @@ public abstract class Message implements Comparable<Message> {
     private int imei;
     private int priority;
     private String type;
+    private String subType;
     private String operation;
     private Date timestamp;
 
@@ -34,6 +35,10 @@ public abstract class Message implements Comparable<Message> {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
     }
 
     public void setOperation(String operation) {
@@ -58,6 +63,10 @@ public abstract class Message implements Comparable<Message> {
 
     public String getType() {
         return type;
+    }
+    
+    public String getSubType() {
+        return subType;
     }
 
     public String getOperation() {

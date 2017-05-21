@@ -5,6 +5,7 @@
  */
 package generators;
 
+import configuration.Configuration;
 import message.GeolocationMessage;
 import message.Priority;
 import message.Type;
@@ -14,9 +15,10 @@ import message.Type;
  * @author nahuel
  */
 public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
-    
+
     private int id; // TODO - remover en el proximo refactor
-    
+    private final String SLEEP = Configuration.getInstance().getProperty(Configuration.GEO_SLEEP);  // miliseconds
+
     public GeolocationMessageGenerator() {
         this.id = 0;
     }
@@ -42,7 +44,7 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
 
     private void waitTime() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(Integer.parseInt(SLEEP));
         } catch (InterruptedException ex) {
             System.err.println(ex.getMessage());
         }
@@ -56,8 +58,8 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
         msg.setLatitude(-44.676868);
         msg.setLongitude(-66.786876);
         msg.setPriority(Priority.HIGH_PRIORITY.getPriority());
-            
+
         management.addMessageToSend(msg);
     }
-    
+
 }

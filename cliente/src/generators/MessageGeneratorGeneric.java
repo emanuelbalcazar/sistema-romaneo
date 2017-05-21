@@ -10,6 +10,7 @@ public abstract class MessageGeneratorGeneric implements Runnable {
     
     protected QueueManagement management;
     protected Thread thread;
+    protected int imei;
 
     public MessageGeneratorGeneric() {
         
@@ -17,6 +18,10 @@ public abstract class MessageGeneratorGeneric implements Runnable {
     
     public void setQueueManagement(QueueManagement management) {
         this.management = management;
+    }
+    
+    public void setImei(int imei) {
+        this.imei = imei;
     }
     
     public abstract void start();

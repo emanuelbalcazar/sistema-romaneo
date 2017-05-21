@@ -9,9 +9,15 @@ import administrator.QueueManagement;
 public class GeneratorEngineImple implements GeneratorEngine {
 
     private final QueueManagement queueManagement;
+    private int imei;
 
     public GeneratorEngineImple(QueueManagement management) {
         this.queueManagement = management;
+    }
+
+    @Override
+    public void setImei(int imei) {
+        this.imei = imei;
     }
 
     @Override
@@ -19,14 +25,17 @@ public class GeneratorEngineImple implements GeneratorEngine {
 
         MessageGeneratorGeneric romaneo = new RomaneoMessageGenerator();
         romaneo.setQueueManagement(queueManagement);
+        romaneo.setImei(imei);
         romaneo.start();
 
         MessageGeneratorGeneric texto = new TextMessageGenerator();
         texto.setQueueManagement(queueManagement);
+        texto.setImei(imei);
         texto.start();
 
         MessageGeneratorGeneric geo = new GeolocationMessageGenerator();
         geo.setQueueManagement(queueManagement);
+        geo.setImei(imei);
         geo.start();
     }
 

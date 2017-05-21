@@ -5,24 +5,26 @@
  */
 package generators;
 
+import configuration.Configuration;
 import message.Priority;
 import message.TextMessage;
 import message.Type;
 
 /**
  * Implementacion de un Generador de mensajes de tipo texto comun
- * 
+ *
  * @author luna
  */
-public class TextMessageGenerator extends MessageGeneratorGeneric{
+public class TextMessageGenerator extends MessageGeneratorGeneric {
 
     private int id;
+    private final String SLEEP = Configuration.getInstance().getProperty(Configuration.TEXT_SLEEP);  // miliseconds
 
     public TextMessageGenerator() {
-        
+
         this.id = 0;
     }
-    
+
     /**
      * Execute thread
      */
@@ -41,11 +43,10 @@ public class TextMessageGenerator extends MessageGeneratorGeneric{
             generateMessage();
         }
     }
-    
-    
+
     private void waitTime() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(Integer.parseInt(SLEEP));
         } catch (InterruptedException ex) {
             System.err.println(ex.getMessage());
         }
@@ -61,5 +62,5 @@ public class TextMessageGenerator extends MessageGeneratorGeneric{
         msg.setText("HOLA WACHEN!!!");
         management.addMessageToSend(msg);
     }
-   
+
 }

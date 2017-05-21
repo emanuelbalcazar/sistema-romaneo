@@ -8,4 +8,6 @@ public interface GeneratorEngine {
     
     void startGenerators();
     
+    void setImei(int imei);
+    
 }
