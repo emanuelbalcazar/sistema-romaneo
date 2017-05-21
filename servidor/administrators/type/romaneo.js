@@ -15,7 +15,7 @@ exports.getType = function() {
 // Recibe el mensaje delegado por el administrador base.
 exports.receivedMessage = function(message) {
 
-    logger.logInfo(message, 'servidor', 'se genero la sentencia INSERT en la tabla ROMANEO');
+    logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO');
     sendConfirmMessage(message);
 }
 
@@ -33,5 +33,6 @@ function sendConfirmMessage(message) {
         timestamp: new Date()
     }
 
+    logger.logInfo(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de ROMANEO');
     rabbitmq.publishMessage(confirmMessage);
 }

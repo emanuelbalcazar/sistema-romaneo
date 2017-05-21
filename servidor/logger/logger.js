@@ -8,28 +8,28 @@ var rabbitmq = require('../rabbitmq/rabbitmq-api');
 **/
 function Logger() {
 
-    function logInfo(message, source, description) {
-        createLog(message, 'info', source, description);
+    function logInfo(message, source, status, description) {
+        createLog(message, 'info', source, status, description);
     }
 
-    function logError(message, source, description) {
-        createLog(message, 'error', source, description);
+    function logError(message, source, status, description) {
+        createLog(message, 'error', source, status, description);
     }
 
-    function logDebug(message, source, description) {
-        createLog(message, 'debug', source, description);
+    function logDebug(message, source, status, description) {
+        createLog(message, 'debug', source, status, description);
     }
 
     // funcion privada para crear el log acorde al nivel indicado.
-    function createLog(message, level, source, description) {
+    function createLog(message, level, source, status, description) {
 
         var logRecord = {
-            id_msg: message.id,
+            messageId: message.id,
             imei: message.imei,
             source: source || 'servidor',
-            target: ' ',
+            status: status,
             level: level,
-            type_msg: message.type,
+            messageType: message.type,
             description: description || '',
             timestamp: new Date()
         }

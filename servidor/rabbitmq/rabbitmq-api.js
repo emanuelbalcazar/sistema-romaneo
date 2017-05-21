@@ -9,7 +9,7 @@ var clientQueue = require('../config_files/rabbit-config.json').clientQueue;
 var loggerQueue = require('../config_files/rabbit-config.json').loggerQueue;
 
 var parser = require('../parser/parser');
-
+var logger = require('../logger/logger');
 
 // Retorna el driver utilizado para realizar la conexion a RabbitMQ.
 exports.getDriverConnector = function() {
@@ -34,11 +34,12 @@ exports.startConsumer = function() {
 
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
             ch.assertQueue(serverQueue, {durable: true});
-            console.log(" [*] Waiting for messages in %s. To exit press CTRL + C ", serverQueue);
+            console.log(" [*] Servidor esperando mensajes en", serverQueue);
 
             ch.consume(serverQueue, function(msg) { // consumo un mensaje
                 var message = JSON.parse(msg.content);
                 console.log(" [x] Recibido %s ", JSON.stringify(message));
+                logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido')
                 parser.setMessage(message);
 
             }, {noAck: true});

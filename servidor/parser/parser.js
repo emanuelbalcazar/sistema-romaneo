@@ -6,6 +6,8 @@ var ajv = new Ajv({allErrors: true}); // options can be passed, e.g. {allErrors:
 var validator = require('./validator');
 var baseSchema = require('./schemas/baseMessage.json');
 var rabbitmq = require('../rabbitmq/rabbitmq-api');
+var logger = require('../logger/logger');
+
 
 var maxPriority = require('../config_files/message-config.json').maxPriority;
 var id = 0;
@@ -49,6 +51,6 @@ function generateErrorMessage(error, message) {
         timestamp: new Date()
     }
 
-    console.error('Error ' + JSON.stringify(errorMessage) + ' en el mensaje ' + message.type);
+    logger.logError(message, 'servidor', 'formato de mensaje invalido: ' + error);
     rabbitmq.publishMessage(errorMessage);
 }
