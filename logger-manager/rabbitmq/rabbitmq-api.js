@@ -12,7 +12,7 @@ exports.startConsumer = function() {
 
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
             ch.assertQueue(loggerQueue, {durable: true});
-            console.log(" [*] Waiting for messages in %s. To exit press CTRL + C ", loggerQueue);
+            console.log(" [*] Logger Manager esperando mensajes en %s ", loggerQueue);
 
             ch.consume(loggerQueue, function(msg) { // consumo un mensaje
                 var message = JSON.parse(msg.content);
@@ -28,7 +28,6 @@ exports.startConsumer = function() {
 function persistMessage(message) {
 
     logRecord.create(message).then(function(data) {
-        console.log('insertado');
-    })
-
+        //console.log('Insertado ', data);
+    });
 }
