@@ -1,0 +1,44 @@
+
+<section class="matter">
+    <div class="container">
+        <div class="row">
+
+            <div class="widget wblue">
+                <div class="col-md-8 col-md-offset-2">
+
+                <div data-cc-widget-header title="Resumen de Logs"></div>
+                <div class="widget-content">
+
+                          <table class="table table-striped table-bordered">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>Dispositivo</th>
+                                    <th>Generados</th>
+                                    <th>Enviados</th>
+                                    <th>Recibidos</th>
+                                    <th>Confirmados</th>
+                                    <th>Acción</th>
+                                </tr>
+                                </thead>
+                                <tr ng-repeat="graph in graphInformation">
+                                    <td><input ng-model="selectedGraphs[$index]" type="checkbox"></td>
+                                    <td>{{graph.name}}</td>
+                                    <td>{{graph.description}}</td>
+                                    <td>{{graph.groups}}</td>
+                                    <td><a data-ng-href="{{graph.source}}" target="_blank">{{graph.nameSource}}</td>
+                                    <td>
+                                      <a class='btn btn-info' href='' ng-click='vm.viewGraph(graph.name)'>
+                                        Editar Grafo
+                                      </a>
+                                    </td>
+                                </tr>
+                          </table>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-foot">
+                <div class="clearfix"></div>
+             </div>
+        </div>
+    </div>
+</section>

@@ -16,7 +16,7 @@ app.use(router);
 app.set('host', appHost);
 app.set('port', appPort);
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function(){
     console.log('Logger manager iniciado en %s:%s', app.get('host'), app.get('port'));
     rabbitmq.startConsumer();
 });

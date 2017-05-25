@@ -1,24 +1,32 @@
 <!doctype html>
 <html ng-app="myApp">
 <head>
-  <title>Logger</title>
-  <script src="components/jquery/dist/jquery.min.js"></script>
-  <script src="components/angular/angular.min.js"></script>
-  <script src="components/angular-route/angular-route.min.js"></script>
-  <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <title>Logger</title>
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-route/angular-route.min.js"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link href="images/favicon.ico" rel="icon" type="image/x-icon" />
 
-  <script src="js/myApp.js"></script>
-  <script src="js/config/routes.js"></script>
-  <script src="js/controllers/controllerModule.js"></script>
-  <script src="js/controllers/homeController.js"></script>
-  <script src="js/services/serviceModule.js"></script>
-  <script src="js/services/loggerService.js"></script>
+    <!-- Controllers  -->
+    <script src="js/controllers/controllerModule.js"></script>
+    <script src="js/controllers/navbarCtrl.js"></script>
+    <script src="js/controllers/loggerCtrl.js"></script>
+
+    <!-- Services -->
+    <script src="js/services/serviceModule.js"></script>
+    <script src="js/services/loggerService.js"></script>
+
+    <!-- Configuration -->
+    <script src="js/myApp.js"></script>
+    <script src="js/config/routes.js"></script>
 
 </head>
-
 <body>
-  <div class="container" ng-view=""></div>
+    <div data-ng-include src="'views/home/navbar.html'"></div>  <!-- Barra superior de menu -->
+    <div class="container" ng-view=""></div>  <!-- Inserta dinamicamente los partials -->
 </body>
 </html>

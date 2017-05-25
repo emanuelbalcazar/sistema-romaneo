@@ -10,5 +10,7 @@
 		function($rootScope){
 			$rootScope.title = "Introducción a la programación web con AngularJS"
 		}
-	])
+	]).config(['$locationProvider', function($locationProvider) {
+        $locationProvider.hashPrefix('');
+    }]);
 })();

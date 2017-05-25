@@ -12,5 +12,8 @@ router.get('/api/findAll', function(req, res) {
     });
 });
 
+router.get('/*', function(req, res) {
+    res.render('index.html');
+});
 
 module.exports = router;

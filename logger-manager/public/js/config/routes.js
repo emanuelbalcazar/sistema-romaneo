@@ -1,14 +1,18 @@
 // routes
 (function () {
 	'use strict';
-	angular.module('MyRoutes', [])
-        .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-			$locationProvider.hashPrefix('');
+	angular.module('MyRoutes', ['ngRoute'])
+        .config(['$routeProvider', function ($routeProvider) {
+
             $routeProvider
                 .when('/', {
                     templateUrl: 'views/home/home.html',
-					controller: 'homeCtrl',
 					title:'Inicio'
+                })
+				.when('/resume', {
+                    templateUrl: 'views/logger/resume.html',
+					controller: 'loggerCtrl',
+					title:'Resumen de Logs'
                 })
                 /* Default */
                 .otherwise({
