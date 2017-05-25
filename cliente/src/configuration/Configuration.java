@@ -20,17 +20,20 @@ public class Configuration {
     public static final String SERVER_HOST = "Server.host";
     public static final String SERVER_VIRTUALHOST = "Server.virtualhost";
     public static final String SERVER_PORT = "Server.port";
-    
+
     public static final String LOGGER_QUEUE = "Logger.queue";
     public static final String LOGGER_HOST = "Logger.host";
     public static final String LOGGER_VIRTUALHOST = "Logger.virtualhost";
     public static final String LOGGER_PORT = "Logger.port";
-    
+
     public static final String MESSAGE_PROB_ERROR = "Message.probError";
-    
+
     public static final String ROMANEO_SLEEP = "RomaneoGenerator.sleep";
     public static final String TEXT_SLEEP = "TextGenerator.sleep";
     public static final String GEO_SLEEP = "GeolocationGenerator.sleep";
+
+    public static final String CONSUMER_VIRTUALHOST = "Consumer.virtualhost";
+    public static final String CONSUMER_QUEUE = "Consumer.queue";
 
     private Configuration() {
         this.properties = new Properties();
@@ -69,6 +72,7 @@ public class Configuration {
     }
 
     private static class ConfigurationHolder {
+
         private static final Configuration INSTANCE = new Configuration();
     }
 }

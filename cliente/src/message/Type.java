@@ -9,7 +9,7 @@ public enum Type {
     ROMANEO("ROMANEO"),
     GEOLOCATION("GEOLOCALIZACION"),
     TEXT("TEXTO"),
-    ACK("ACK"),
+    CONFIRM("CONFIRM"),
     ERROR("ERROR");
 
     private final String type;

@@ -44,6 +44,7 @@ public class Sender {
             channel = connection.createChannel();
             channel.queueDeclare(SERVER_QUEUE, true, false, false, null);
             connected = true;
+            System.out.println("Conexion a " + SERVER_QUEUE + " establecida");
         } catch (IOException | TimeoutException ex) {
             System.err.println("Error al abrir la conexion en sender: " + ex.getMessage());
         }

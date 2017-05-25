@@ -16,17 +16,19 @@ public class Administrator implements Runnable {
     private final QueueManagement queueManagement;
     private final GeneratorEngine generators;
     private final Sender sender;
+    private final Consumer consumer;
     private Thread thread;
-    private int imei;
+    private final int imei;
 
     public Administrator(int imei) {
         this.connectivitySimulator = new ConnectivitySimulator();
-        this.queueManagement = new QueueManagement();
+        this.queueManagement = QueueManagement.getInstance();
         this.sender = new Sender();
+        this.consumer = new Consumer();
         this.generators = new GeneratorEngineImple(queueManagement);
         this.imei = imei;
     }
-    
+
     /**
      * Inicia la ejecucion del hilo.
      */
@@ -39,16 +41,19 @@ public class Administrator implements Runnable {
         }
 
     }
-    
+
     /**
      * Inicializa los simuladores correspondientes (generadores, simuladores).
-     * 
+     *
      */
     private void inicialize() {
         sender.connect();
+        consumer.start();
+        connectivitySimulator.start();
+        waitTime();
+
         generators.setImei(imei);
         generators.startGenerators();
-        connectivitySimulator.start();
     }
 
     @Override
@@ -58,7 +63,7 @@ public class Administrator implements Runnable {
             sendMessage();
         }
     }
-    
+
     /**
      * Duerme al hilo por un tiempo determinado.
      */
@@ -69,25 +74,32 @@ public class Administrator implements Runnable {
             System.err.println("Excepcion " + ex.getMessage());
         }
     }
-    
+
     /**
      * Verifica si el dispositivo posee conectividad, en caso de ser asi toma un
-     * mensaje de la cola de listos para enviar y lo manda a la cola de mensajeria 
-     * utilizando los objetos correspondientes encargados de dicha tarea.
+     * mensaje de la cola de listos para enviar y lo manda a la cola de
+     * mensajeria utilizando los objetos correspondientes encargados de dicha
+     * tarea.
      */
     private void sendMessage() {
         if (connectivitySimulator.hasConnectivity() && queueManagement.hasMessageToSend()) {
             Message msg = queueManagement.getMessageToSend();
-            boolean send = sender.sendMessage(msg);
-            sentStatus(send, msg);
+
+            if (msg != null) {
+                boolean send = sender.sendMessage(msg);
+                sentStatus(send, msg);
+            }
+
         } else {
             System.out.println("No hay nada para enviar");
         }
     }
-    
+
     /**
-     * Verifica si el mensaje pudo ser enviado, en caso de exito coloca el mensaje
-     * enviado en la cola de mensajes enviados utilizando el manejador de colas.
+     * Verifica si el mensaje pudo ser enviado, en caso de exito coloca el
+     * mensaje enviado en la cola de mensajes enviados utilizando el manejador
+     * de colas.
+     *
      * @param send booleano indicando si el mensaje fue enviado con exito.
      * @param msg mensaje tomado de la cola de listos para enviar.
      */

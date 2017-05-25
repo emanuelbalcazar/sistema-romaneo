@@ -14,7 +14,7 @@ public class GeneratorEngineImple implements GeneratorEngine {
     public GeneratorEngineImple(QueueManagement management) {
         this.queueManagement = management;
     }
-
+    
     @Override
     public void setImei(int imei) {
         this.imei = imei;

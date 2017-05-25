@@ -39,6 +39,8 @@ public class LoggerSender {
             connection = factory.newConnection();
             channel = connection.createChannel();
             channel.queueDeclare(LOGGER_QUEUE, true, false, false, null);
+            
+            System.out.println("Conexion a " + LOGGER_QUEUE + " establecida");
         } catch (IOException | TimeoutException ex) {
             System.err.println("Error al abrir la conexion en logger sender: " + ex.getMessage());
         }

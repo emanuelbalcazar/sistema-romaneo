@@ -1,5 +1,6 @@
 package administrator;
 
+import configuration.Configuration;
 import java.util.PriorityQueue;
 import message.Message;
 
@@ -15,8 +16,7 @@ public class QueueManagement {
     private final PriorityQueue<Message> receivedQueue;  // mensajes recibidos
     private final PriorityQueue<Message> confirmedQueue;  // mensajes confirmados
 
-    
-    public QueueManagement() {
+    private QueueManagement() {
         this.queueToSend = new PriorityQueue<>();
         this.sentQueue = new PriorityQueue<>();
         this.receivedQueue = new PriorityQueue<>();
@@ -47,7 +47,11 @@ public class QueueManagement {
      * @return el primer mensaje con mayor prioridad.
      */
     public Message getMessageToSend() {
-        return queueToSend.poll();
+        if (!queueToSend.isEmpty()) {
+            return queueToSend.poll();
+        }
+        
+        return null;
     }
 
     /**
@@ -59,5 +63,17 @@ public class QueueManagement {
         sentQueue.add(msg);
     }
 
+    /**
+     * Utilizado para la implementacion del patron de diseño Singleton.
+     *
+     * @return una unica instancia de la clase.
+     */
+    public static QueueManagement getInstance() {
+        return ConfigurationHolder.INSTANCE;
+    }
+
+    private static class ConfigurationHolder {
+        private static final QueueManagement INSTANCE = new QueueManagement();
+    }
 
 }

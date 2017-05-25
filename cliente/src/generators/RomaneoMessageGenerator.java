@@ -17,7 +17,7 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
 
     private int idRomaneo;
     private final Random rand;
-    private final int secuence;
+    private int secuence;
 
     private final String PROB_ERROR = Configuration.getInstance().getProperty(Configuration.MESSAGE_PROB_ERROR);
     private final String SLEEP = Configuration.getInstance().getProperty(Configuration.ROMANEO_SLEEP);  // miliseconds
@@ -102,8 +102,8 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
     private RomaneoMessage generateMessageError() {
         RomaneoMessage msg = new RomaneoMessage();
 
-        msg.setId(rand.nextInt(1000));
-        msg.setIdRomaneo(++idRomaneo);
+        msg.setId(++idRomaneo);  // TODO - eliminar, buscar otra forma de generar IDs.
+        msg.setIdRomaneo(rand.nextInt(1000));
         msg.setEstablishment("ERROR");
         msg.setType(Type.ROMANEO.getType());
         msg.setSubType(SubType.ERROR.getSubType());
@@ -111,18 +111,34 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
 
         return msg;
     }
-
+    
+    /**
+     * Genera un mensaje siguiendo la secuencia de pasos de Romaneo.
+     * 
+     * @return un mensaje de romaneo en secuencia.
+     */
     private RomaneoMessage generateRomaneoMessageSecuence() {
         RomaneoMessage msg = new RomaneoMessage();
 
-        msg.setId(rand.nextInt(1000));
-        msg.setIdRomaneo(++idRomaneo);
+        msg.setId(++idRomaneo);
+        msg.setIdRomaneo(rand.nextInt(1000));
         msg.setEstablishment("UNPSJB");
         msg.setType(Type.ROMANEO.getType());
-        msg.setSubType(SubType.START_ROMANEO.getSubType());
+        msg.setSubType(getSecuence());
         msg.setPriority(Priority.HIGH_PRIORITY.getPriority());
-
+        
+        secuence++;
+        
         return msg;
+    }
+
+    /**
+     * 
+     * @return la secuencia de operacion de romaneo; 
+     */
+    private String getSecuence() {
+        secuence = (secuence == secuenceRom.length) ? 0 : secuence;
+        return secuenceRom[secuence];
     }
 
 }
