@@ -22,7 +22,7 @@ exports.setMessage = function(message) {
     } else {
         generateErrorMessage(ajv.errorsText(), message);
     }
-}
+};
 
 // Valida el formato del mensaje acorde al tipo de mensaje.
 function validateTypeMessage(message) {
@@ -49,7 +49,7 @@ function generateErrorMessage(error, message) {
         imei: message.imei,
         description: error,
         timestamp: new Date()
-    }
+    };
 
     logger.logError(message, 'servidor', 'formato de mensaje invalido: ' + error);
     rabbitmq.publishMessage(errorMessage);

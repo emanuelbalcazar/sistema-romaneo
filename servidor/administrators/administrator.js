@@ -4,6 +4,7 @@
 
 var factory = require('./administratorFactory');
 
+
 exports.setMessage = function(message) {
 
     var administrator = factory.getAdministrator(message.type.toLowerCase());
@@ -13,4 +14,4 @@ exports.setMessage = function(message) {
     } else {
         console.error('No existe una implementacion para el tipo de mensaje');
     }
-}
+};

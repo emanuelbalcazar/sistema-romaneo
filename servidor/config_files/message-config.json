@@ -1,3 +1,4 @@
 {
-    "maxPriority": 4
+    "maxPriority": 4,
+    "probError": 10
 }

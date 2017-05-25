@@ -14,17 +14,17 @@ var logger = require('../logger/logger');
 // Retorna el driver utilizado para realizar la conexion a RabbitMQ.
 exports.getDriverConnector = function() {
     return amqp;
-}
+};
 
 // Retorna la url donde se encuentra corriendo RabbitMQ.
 exports.getServerUrl = function() {
     return serverUrl;
-}
+};
 
 // Retorna el nombre de la cola de la cual consume el servidor.
 exports.getServerQueueName = function() {
     return serverQueue;
-}
+};
 
 // Inicia el consumo de mensajes desde la cola del servidor en RabbitMQ.
 exports.startConsumer = function() {
@@ -38,14 +38,14 @@ exports.startConsumer = function() {
 
             ch.consume(serverQueue, function(msg) { // consumo un mensaje
                 var message = JSON.parse(msg.content);
-                console.log(" [x] Recibido %s ", JSON.stringify(message));
-                logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido')
+                //console.log(" [x] Recibido %s ", JSON.stringify(message));
+                logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido');
                 parser.setMessage(message);
 
             }, {noAck: true});
         });
     });
-}
+};
 
 // Publica un mensaje en la cola del cliente de parte del servidor.
 exports.publishMessage = function(message) {
@@ -59,7 +59,7 @@ exports.publishMessage = function(message) {
             console.log(" [x] Publicado %s en %s", JSON.stringify(message), clientQueue);
         });
     });
-}
+};
 
 // Publica un mensaje de log en la cola del logger.
 exports.publishLoggerMessage = function(message) {
@@ -72,4 +72,4 @@ exports.publishLoggerMessage = function(message) {
             console.log(" [x] Publicado Logger %s en %s", JSON.stringify(message), loggerQueue);
         });
     });
-}
+};

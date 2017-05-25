@@ -32,7 +32,7 @@ function Logger() {
             messageType: message.type,
             description: description || '',
             timestamp: new Date()
-        }
+        };
 
         pushLog(logRecord);
     }
@@ -47,7 +47,7 @@ function Logger() {
         logInfo: logInfo,
         logError: logError,
         logDebug: logDebug
-    }
+    };
 }
 
 module.exports = new Logger();
