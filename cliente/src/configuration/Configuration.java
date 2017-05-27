@@ -34,6 +34,12 @@ public class Configuration {
 
     public static final String CONSUMER_VIRTUALHOST = "Consumer.virtualhost";
     public static final String CONSUMER_QUEUE = "Consumer.queue";
+    
+    public static final String GEO_RANDOM_MOVE_PHONE = "GeolocationGenerator.randomMovePhone";
+    public static final String GEO_MOVE_PHONE = "GeolocationGenerator.movePhone";
+    public static final String GEO_MIN_LAT = "GeolocationGenerator.minLat";
+    public static final String GEO_MAX_LAT = "GeolocationGenerator.maxLat";
+    public static final String GEO_DISTANCE = "GeolocationGenerator.distance";
 
     private Configuration() {
         this.properties = new Properties();
