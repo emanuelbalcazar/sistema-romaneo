@@ -20,7 +20,7 @@ Instalar Bower:
 ## Despliegue
 
 1. Clonar el repositorio: `https://github.com/emanuelbalcazar/sistema-romaneo`
-2. Cambiar directorio: `cd sistema-romaneo/`
+2. Cambiar directorio: `ccdd sistema-romaneo/`
 3. En `server` y `logger-manager` ejecutar: `npm install`
 4. En `logger-manager` ejecutar: `bower install`
 5. Migrar la base de datos en `logger-manager` con: `npm run migrate`

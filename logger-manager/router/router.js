@@ -12,6 +12,14 @@ router.get('/api/findAll', function(req, res) {
     });
 });
 
+router.get('/api/findResumen', function(req, res) {
+    console.log('entro a find');
+
+    logController.findResumen(function(error, result) {
+        res.send(result);
+    });
+});
+
 router.get('/*', function(req, res) {
     res.render('index.html');
 });
