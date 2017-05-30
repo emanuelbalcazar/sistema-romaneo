@@ -3,7 +3,9 @@
 	'use strict';
 	angular.module('myApp', [
 		'ngRoute',
+		'ngAnimate',
 		'MyRoutes',
+		'ui.bootstrap',
 		'controllerModule',
 		'serviceModule'
 		]).run(['$rootScope',

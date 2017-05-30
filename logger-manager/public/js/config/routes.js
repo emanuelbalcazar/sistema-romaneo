@@ -6,14 +6,24 @@
 
             $routeProvider
                 .when('/', {
-                    templateUrl: 'views/home/home.html',
+                    templateUrl: 'views/navigation/home.html',
 					title:'Inicio'
                 })
 				.when('/resume', {
-                    templateUrl: 'views/logger/resume.html',
+                    templateUrl: 'views/resume/resume.html',
 					controller: 'loggerCtrl',
 					title:'Resumen de Logs'
                 })
+				.when('/message', {
+					templateUrl: 'views/message/list.html',
+					controller: 'messageCtrl',
+					title:'Mensajes'
+				})
+				.when('/mobile/:id', {
+					templateUrl: 'views/mobile/view.html',
+					controller: 'mobileViewCtrl',
+					title:'Mensajes del dispositivo'
+				})
                 /* Default */
                 .otherwise({
                     redirectTo: '/'

@@ -1,11 +1,15 @@
 <!doctype html>
 <html ng-app="myApp">
 <head>
-    <title>Logger</title>
+    <title>Hi! Im a sheep</title>
     <script src="components/jquery/dist/jquery.min.js"></script>
     <script src="components/angular/angular.min.js"></script>
     <script src="components/angular-route/angular-route.min.js"></script>
     <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="components/angular-animate/angular-animate.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
 
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
@@ -13,8 +17,10 @@
 
     <!-- Controllers  -->
     <script src="js/controllers/controllerModule.js"></script>
-    <script src="js/controllers/navbarCtrl.js"></script>
-    <script src="js/controllers/loggerCtrl.js"></script>
+    <script src="js/controllers/navigation/navbarCtrl.js"></script>
+    <script src="js/controllers/resume/loggerCtrl.js"></script>
+    <script src="js/controllers/message/messageCtrl.js"></script>
+    <script src="js/controllers/mobile/mobileViewCtrl.js"></script>
 
     <!-- Services -->
     <script src="js/services/serviceModule.js"></script>
@@ -26,7 +32,7 @@
 
 </head>
 <body>
-    <div data-ng-include src="'views/home/navbar.html'"></div>  <!-- Barra superior de menu -->
+    <div data-ng-include src="'views/navigation/navbar.html'"></div>  <!-- Barra superior de menu -->
     <div class="container" ng-view=""></div>  <!-- Inserta dinamicamente los partials -->
 </body>
 </html>

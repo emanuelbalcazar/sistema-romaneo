@@ -1,27 +1,35 @@
 // router.js - en este modulo se declaran las rutas manejadas por el logger-manager.
 var express = require('express');
-var url = require('url');
 var router = express.Router();
 var logController = require('../controllers/logController');
 
-router.get('/api/findAll', function(req, res) {
-    console.log('entro a find');
+// Ruta principal de la aplicacion.
+router.get('/', function(req, res) {
+    res.send('aplicacion inicializada');
+});
 
-    logController.findAll(function(error, result) {
-        res.send(result);
+// Retorna la cantidad de registros de logs.
+router.get('/api/logs/countAll', function(req, res) {
+    logController.countAll(function(error, result) {
+        res.jsonp(result);
     });
 });
 
-router.get('/api/findResumen', function(req, res) {
-    console.log('entro a find');
-
+// Retorna un resumen agrupado de logs
+router.get('/api/resume', function(req, res) {
     logController.findResumen(function(error, result) {
         res.send(result);
     });
 });
 
-router.get('/*', function(req, res) {
-    res.render('index.html');
+router.get('/api/mobile/:imei', function(req, res) {
+    logController.findMessagesByMobile(req.params.imei, function(error, result) {
+        res.send(result)
+    })
 });
+
+// router.get('/*', function(req, res) {
+//     res.render('index.html');
+// });
 
 module.exports = router;

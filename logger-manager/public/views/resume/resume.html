@@ -1,0 +1,40 @@
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Resumen</div>
+  <div class="panel-body">
+        <h4>Cantidad de logs registrados <span class="label label-primary">{{quantity}}</span></h4>
+  </div>
+
+  <!-- Table -->
+  <table class="table table-striped table-bordered">
+          <thead class="thead-inverse">
+          <tr>
+              <th>Dispositivo</th>
+              <th>Generados</th>
+              <th>Enviados</th>
+              <th>Recibidos</th>
+              <th>Confirmados</th>
+              <th>Error</th>
+              <th>Acción</th>
+          </tr>
+          </thead>
+          <tr ng-repeat="log in data">
+              <td>{{log.imei}}</td>
+              <td>{{log.GENERADO || 0}}</td>
+              <td>{{log.ENVIADO || 0}}</td>
+              <td>{{log.RECIBIDO || 0}}</td>
+              <td>{{log.CONFIRMADO || 0}}</td>
+              <td>{{log.ERROR || 0}}</td>
+              <td>
+                <button type="button" class="btn btn-info" data-ng-click="viewMobile(log)">
+                    <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+                 Ver movil</button>
+              </td>
+
+          </tr>
+    </table>
+</div>
+
+<div class="col-md-6 col-md-offset-4 pagination-inverse" data-ng-show="showPaginator">
+    <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" previous-text="Anterior" next-text="Siguiente" max-size="10"></ul>
+</div>
