@@ -9,7 +9,8 @@ public enum Status {
     GENERATED("GENERADO"),
     SENT("ENVIADO"),
     RECEIVED("RECIBIDO"),
-    CONFIRMED("CONFIRMADO");
+    CONFIRMED("CONFIRMADO"),
+    ERROR("ERROR");
     
     private String status;
     

@@ -1,10 +1,9 @@
 package logger;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- *
+ * Clase que representa un mensaje de log
  * @author emanuel
  */
 public class LogMessage {

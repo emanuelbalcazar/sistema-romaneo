@@ -7,6 +7,8 @@ package generators;
 
 import configuration.Configuration;
 import java.util.Random;
+import logger.Logger;
+import logger.Status;
 import message.GeolocationMessage;
 import message.Priority;
 import message.Type;
@@ -31,19 +33,17 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
     private final int distance;
     private double beforeLatitude;
     private double beforeLongitude;
-    
-    
-    
+
     public GeolocationMessageGenerator() {
         this.id = 0;
-        this.beforeLatitude=0;
-        this.beforeLongitude =0;
+        this.beforeLatitude = 0;
+        this.beforeLongitude = 0;
         this.randomMovePhone = Integer.parseInt(RANDOM_MOVE_PHONE);
         this.movePhone = Integer.parseInt(MOVE_PHONE);
         this.minLat = Integer.parseInt(MIN_LAT);
         this.maxLat = Integer.parseInt(MAX_LAT);
-        this.distance = Integer.parseInt(DISTANCE); 
-        
+        this.distance = Integer.parseInt(DISTANCE);
+
     }
 
     /**
@@ -78,12 +78,13 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
         GeolocationMessage msg = generatorMessage();
 
         if (distanciaCoord(msg.getLatitude(), msg.getLongitude(), beforeLatitude, beforeLongitude) == true) {
+            Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero el mensaje de Geolocalizacion");
+
             management.addMessageToSend(msg);
             beforeLatitude = msg.getLatitude();
             beforeLongitude = msg.getLongitude();
             System.out.println("Se envia Mensaje");
-        }
-        else{
+        } else {
             System.out.println("Se encuentra en el mismo sitio, NO se envia el mensaje");
         }
 
@@ -94,10 +95,9 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
         msg.setId(++id);
         msg.setImei(this.imei);
         msg.setType(Type.GEOLOCATION.getType());
-        if(movePhone() > movePhone){
-        msg.setLatitude(lantRange());
-        }
-        else{
+        if (movePhone() > movePhone) {
+            msg.setLatitude(lantRange());
+        } else {
             msg.setLatitude(beforeLatitude);
         }
         msg.setLongitude(-66.786876);
@@ -106,16 +106,16 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
         return msg;
 
     }
-    
-    public int movePhone(){
+
+    public int movePhone() {
         Random r = new Random();
-		return r.nextInt() * (randomMovePhone);
+        return r.nextInt() * (randomMovePhone);
     }
-    
+
     private float lantRange() {
-		Random r = new Random();
-		return minLat + r.nextFloat() * (maxLat - (minLat));
-	}
+        Random r = new Random();
+        return minLat + r.nextFloat() * (maxLat - (minLat));
+    }
 
     private boolean distanciaCoord(double lat1, double lng1, double lat2, double lng2) {
         //double radioTierra = 3958.75;//en millas  

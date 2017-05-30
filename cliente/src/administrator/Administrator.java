@@ -4,6 +4,7 @@ import connectivity.ConnectivitySimulator;
 import message.Message;
 import generators.GeneratorEngine;
 import generators.GeneratorEngineImple;
+import logger.LoggerSender;
 
 /**
  * Clase encargada de administrar el envio y manejo de mensajes. Es
@@ -17,6 +18,7 @@ public class Administrator implements Runnable {
     private final GeneratorEngine generators;
     private final Sender sender;
     private final Consumer consumer;
+    private final LoggerSender loggerSender;
     private Thread thread;
     private final int imei;
 
@@ -25,6 +27,7 @@ public class Administrator implements Runnable {
         this.queueManagement = QueueManagement.getInstance();
         this.sender = new Sender();
         this.consumer = new Consumer();
+        this.loggerSender = LoggerSender.getInstance();
         this.generators = new GeneratorEngineImple(queueManagement);
         this.imei = imei;
     }

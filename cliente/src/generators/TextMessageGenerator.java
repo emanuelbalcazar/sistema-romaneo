@@ -6,6 +6,8 @@
 package generators;
 
 import configuration.Configuration;
+import logger.Logger;
+import logger.Status;
 import message.Priority;
 import message.TextMessage;
 import message.Type;
@@ -59,7 +61,9 @@ public class TextMessageGenerator extends MessageGeneratorGeneric {
         msg.setPriority(Priority.LOW_PRIORITY.getPriority());
         msg.setType(Type.TEXT.getType());
         msg.setOperation("2");
-        msg.setText("HOLA WACHEN!!!");
+        msg.setText("Mensaje de Texto: Hola Mundo");
+        Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero el mensaje de Texto");
+
         management.addMessageToSend(msg);
     }
 

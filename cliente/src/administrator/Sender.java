@@ -7,6 +7,8 @@ import com.rabbitmq.client.ConnectionFactory;
 import configuration.Configuration;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
+import logger.Logger;
+import logger.Status;
 import message.Message;
 
 /**
@@ -38,7 +40,7 @@ public class Sender {
         try {
             factory = new ConnectionFactory();
             factory.setHost(SERVER_HOST);
-        //    factory.setPort(Integer.parseInt(SERVER_PORT));
+            //    factory.setPort(Integer.parseInt(SERVER_PORT));
             factory.setVirtualHost(VIRTUAL_HOST);
             connection = factory.newConnection();
             channel = connection.createChannel();
@@ -60,6 +62,8 @@ public class Sender {
         try {
             Gson gson = new Gson();
             String messageJson = gson.toJson(msg);
+            Logger.getInstance().logInfo(msg, "cliente", Status.SENT.getStatus(), "Mensaje enviado al servidor");
+
             System.out.println("Enviado: " + messageJson);
             channel.basicPublish("", SERVER_QUEUE, null, messageJson.getBytes());
         } catch (IOException ex) {
