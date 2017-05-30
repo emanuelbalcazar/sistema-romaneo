@@ -39,7 +39,7 @@ exports.startConsumer = function() {
             ch.consume(serverQueue, function(msg) { // consumo un mensaje
                 var message = JSON.parse(msg.content);
                 //console.log(" [x] Recibido %s ", JSON.stringify(message));
-                logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido');
+                logger.logInfo(message, 'cliente', 'RECIBIDO', 'mensaje recibido');
                 parser.setMessage(message);
 
             }, {noAck: true});
@@ -56,7 +56,7 @@ exports.publishMessage = function(message) {
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
             ch.assertQueue(clientQueue, {durable: true});
             ch.sendToQueue(clientQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
-            console.log(" [x] Publicado %s en %s", JSON.stringify(message), clientQueue);
+            console.log("\n [x] Publicado %s en %s", JSON.stringify(message), clientQueue);
         });
     });
 };
@@ -69,7 +69,7 @@ exports.publishLoggerMessage = function(message) {
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
             ch.assertQueue(loggerQueue, {durable: true});
             ch.sendToQueue(loggerQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
-            console.log(" [x] Publicado Logger %s en %s", JSON.stringify(message), loggerQueue);
+            console.log("\n [x] Publicado Logger %s en %s", JSON.stringify(message), loggerQueue);
         });
     });
 };

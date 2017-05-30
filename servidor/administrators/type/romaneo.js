@@ -18,12 +18,10 @@ exports.receivedMessage = function(message) {
 
     var probability = getRandomNumber(0, 100);
 
-
     if ((probability < probError) || (message.subType == "ERROR")) {
-        logger.logError(message, 'servidor', 'ERROR', 'no se pudo generar la sentencia debido a un error');
         sendErrorMessage(message);
     } else {
-        logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO');
+        logger.logInfo(message, 'cliente', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + messageSubType);
         sendConfirmMessage(message);
     }
 };
@@ -42,7 +40,7 @@ function sendConfirmMessage(message) {
         description: ''
     };
 
-    logger.logInfo(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de ROMANEO');
+    logger.logInfo(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de ROMANEO ' + confirmMessage.subType);
     rabbitmq.publishMessage(confirmMessage);
 }
 
@@ -59,7 +57,7 @@ function sendErrorMessage(message) {
         description: 'no se pudo generar la sentencia debido a un error'
     };
 
-    logger.logError(errorMessage, 'servidor', 'ERROR', 'no se pudo generar la sentencia debido a un error');
+    logger.logError(errorMessage, 'cliente', 'ERROR', 'no se pudo generar la sentencia debido a un error');
     rabbitmq.publishMessage(errorMessage);
 }
 
