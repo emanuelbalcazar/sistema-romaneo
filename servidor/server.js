@@ -6,6 +6,9 @@ var appHost = require('./config_files/server-config.json').appHost;
 var express = require('express');
 var app = express();
 
+// localización de los ficheros estaticos.
+app.use(express.static(__dirname + '/public'));
+
 app.use(router);
 app.set('host', appHost);
 app.set('port', appPort);

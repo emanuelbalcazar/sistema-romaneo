@@ -1,0 +1,35 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <title>Administrador</title>
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-route/angular-route.min.js"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="components/angular-animate/angular-animate.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link href="images/favicon.ico" rel="icon" type="image/x-icon" />
+
+    <!-- Controllers  -->
+    <script src="js/controllers/controllerModule.js"></script>
+
+
+    <!-- Services -->
+    <script src="js/services/serviceModule.js"></script>
+
+
+    <!-- Configuration -->
+    <script src="js/myApp.js"></script>
+    <script src="js/config/routes.js"></script>
+
+</head>
+<body>
+    <div data-ng-include src="'views/navigation/navbar.html'"></div>  <!-- Barra superior de menu -->
+    <div class="container" ng-view=""></div>  <!-- Inserta dinamicamente los partials -->
+</body>
+</html>
