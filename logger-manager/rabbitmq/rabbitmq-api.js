@@ -19,7 +19,7 @@ exports.startConsumer = function() {
                 console.log(" [x] Recibido %s ", JSON.stringify(message));
                 persistMessage(message);
 
-            }, {noAck: false});
+            }, {noAck: true}); // al consumir el mensaje lo remueve de rabbitmq.
         });
     });
 }

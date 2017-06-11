@@ -15,17 +15,18 @@ router.get('/api/logs/countAll', function(req, res) {
     });
 });
 
-// Retorna un resumen agrupado de logs
+// Retorna un resumen agrupado de logs.
 router.get('/api/resume', function(req, res) {
     logController.findResumen(function(error, result) {
         res.send(result);
     });
 });
 
+// Retorna los mensajes logeados de un dispositivo en particular.
 router.get('/api/mobile/:imei', function(req, res) {
     logController.findMessagesByMobile(req.params.imei, function(error, result) {
-        res.send(result)
-    })
+        res.send(result);
+    });
 });
 
 // router.get('/*', function(req, res) {

@@ -14,6 +14,7 @@
         $scope.imei = $routeParams.id;
         $scope.allCandidates = [];
 
+        // Busca por el imei del dispositivo todos los mensajes asociados.
         function findMessagesByMobile() {
             loggerSrv.findMessagesByMobile($scope.imei).then(function(messages) {
                 $scope.allCandidates = messages;
@@ -26,11 +27,15 @@
             });
         }
 
+        $scope.viewMessage = function(message) {
+            $location.path('mobile/' + message.id + '/' + message.type);
+        }
+
         // Pagination
        function paginate() {
            $scope.totalItems = $scope.allCandidates.length;
            $scope.currentPage = 1;
-           $scope.itemsPerPage = 8;
+           $scope.itemsPerPage = 6;
 
            $scope.$watch("currentPage", function() {
                setPagingData($scope.currentPage);
@@ -49,6 +54,5 @@
 
         findMessagesByMobile();
 
-
-    } // end mobileCtrl
+    } // end mobileViewCtrl
 })();

@@ -8,9 +8,11 @@
 
         var countInterval = $interval(countAllLogs, 2000);
         var resumeInterval = $interval(getResume, 3000);
+
         $scope.running = true;
         $scope.quantity = 'Conectando...';
         $scope.allCandidates = [];
+        $scope.data = [];
 
         // Obtiene la cantidad de logs registrados en la DB.
         function countAllLogs() {
@@ -28,12 +30,13 @@
             loggerSrv.getResume().then(function(resume) {
                 if (resume.status) return; // si hubo un error salgo de la funcion.
 
-                $scope.data = [];
                 for (var i = 0; i < resume.length; i++) {
                     if (!$scope.data[resume[i].imei]) {
                         $scope.data[resume[i].imei] = {imei: resume[i].imei}; // si no existe el objeto con dicho imei, lo crea.
                     }
-                    $scope.data[resume[i].imei][resume[i].status] = resume[i].logs;
+
+                    // if ($scope.data[resume[i].status])
+                        $scope.data[resume[i].imei][resume[i].status] = resume[i].logs;
                 }
 
                 $scope.allCandidates = $scope.data;
@@ -66,14 +69,13 @@
        function paginate() {
            $scope.totalItems = $scope.allCandidates.length;
            $scope.currentPage = 1;
-           $scope.itemsPerPage = 8;
+           $scope.itemsPerPage = 6;
 
            $scope.$watch("currentPage", function() {
                setPagingData($scope.currentPage);
            });
 
            function setPagingData(page) {
-
                var pagedData = $scope.allCandidates.slice(
                    (page - 1) * $scope.itemsPerPage,
                    page * $scope.itemsPerPage

@@ -16,6 +16,7 @@
               <th>Tipo</th>
               <th>Descripción</th>
               <th>Timestamp</th>
+              <th>Acción</th>
           </tr>
           </thead>
 
@@ -27,6 +28,11 @@
               <td>{{msg.messageType}}</td>
               <td>{{msg.description}}</td>
               <td>{{msg.timestamp}}</td>
+              <td>
+                <button type="button" class="btn btn-info" data-ng-click="viewMessage(msg)">
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                 Ver mensaje</button>
+              </td>
           </tr>
     </table>
 </div>

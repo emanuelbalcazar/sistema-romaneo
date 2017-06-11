@@ -24,6 +24,11 @@
 					controller: 'mobileViewCtrl',
 					title:'Mensajes del dispositivo'
 				})
+				.when('/message/:id/:type', {
+					templateUrl: 'views/message/view.html',
+					controller: 'messageViewCtrl',
+					title:'Traza del mensaje'
+				})
                 /* Default */
                 .otherwise({
                     redirectTo: '/'
