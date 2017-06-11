@@ -15,3 +15,5 @@ cliente/dist/
 cliente/nbproject/
 
 logger-manager/public/components/
+
+servidor/public/components/

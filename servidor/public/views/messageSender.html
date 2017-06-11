@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label for="comment">Escribir Mensaje:</label>
+  <textarea ng-model="message" class="form-control" rows="10" id="comment"></textarea>
+</div>
+<div class="text-right form-group">
+    <button class="btn btn-primary" ng-click="resetLayer()">Limpiar</button>
+    <button class="btn btn-primary" ng-click="sendMessage()">Enviar Mensaje</button>
+</div>
+<div class="alert alert-success alert-dismissable" ng-show = 'showSuccess'>
+  <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Success!</strong> {{messageSuccess}}
+</div>
+<div class="alert alert-danger alert-dismissable" ng-show='showDanger'>
+  <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Danger!</strong> {{messageDanger}}
+</div>

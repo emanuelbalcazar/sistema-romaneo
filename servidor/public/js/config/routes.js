@@ -9,6 +9,11 @@
                     templateUrl: 'views/navigation/home.html',
 					title:'Inicio'
                 })
+								.when('/sender', {
+				                    templateUrl: 'views/messageSender.html',
+									controller: 'messageSenderCtrl',
+									title:'Enviar Mensajes'
+				                })
                 /* Default */
                 .otherwise({
                     redirectTo: '/'
