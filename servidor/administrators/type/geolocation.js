@@ -4,12 +4,12 @@
 var rabbitmq = require('../../rabbitmq/rabbitmq-api');
 var logger = require('../../logger/logger');
 var maxPriority = require('../../config_files/message-config.json').maxPriority;
-var probError = require('../../config_files/message-config.json').probError;
+
 
 exports.getType = function() {
     return 'geolocalizacion';
 }
 
 exports.receivedMessage = function(message) {
-    logger.logInfo(message, 'cliente', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla GEOLOCALIZACION');
+    logger.logTrace(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla GEOLOCALIZACION');
 }

@@ -4,7 +4,6 @@
 var rabbitmq = require('../../rabbitmq/rabbitmq-api');
 var logger = require('../../logger/logger');
 var maxPriority = require('../../config_files/message-config.json').maxPriority;
-var probError = require('../../config_files/message-config.json').probError;
 
 
 exports.getType = function() {
@@ -25,7 +24,7 @@ function saveMessage(message){
 
 exports.receivedMessage = function(message) {
     // saveMessage(message);
-    logger.logInfo(message, 'cliente', 'CONFIRMADO', 'se recibio el mensaje de TEXTO');
+    logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se recibio el mensaje de TEXTO ', message.text);
     sendConfirmMessage(message);
 }
 
@@ -35,7 +34,7 @@ function sendConfirmMessage(message) {
     var confirmMessage = {
         id: ++id,
         priority : maxPriority,
-        type: 'CONFIRM',
+        type: 'CONFIRMADO',
         messageId: message.id,
         messageType: message.type,
         messageSubType: message.subType || '',
@@ -43,6 +42,6 @@ function sendConfirmMessage(message) {
         description: ''
     };
 
-    logger.logInfo(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de TEXTO');
+    logger.logTrace(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de TEXTO');
     rabbitmq.publishMessage(confirmMessage);
 }

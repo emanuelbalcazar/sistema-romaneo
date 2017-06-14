@@ -8,7 +8,6 @@ var baseSchema = require('./schemas/baseMessage.json');
 var rabbitmq = require('../rabbitmq/rabbitmq-api');
 var logger = require('../logger/logger');
 
-
 var maxPriority = require('../config_files/message-config.json').maxPriority;
 var id = 0;
 

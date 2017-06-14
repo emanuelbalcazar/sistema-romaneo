@@ -20,6 +20,10 @@ function Logger() {
         createLog(message, 'debug', source, status, description);
     }
 
+    function logTrace(message, source, status, description) {
+        createLog(message, 'trace', source, status, description);
+    }
+
     // funcion privada para crear el log acorde al nivel indicado.
     function createLog(message, level, source, status, description) {
 
@@ -46,7 +50,8 @@ function Logger() {
     return {
         logInfo: logInfo,
         logError: logError,
-        logDebug: logDebug
+        logDebug: logDebug,
+        logTrace: logTrace
     };
 }
 

@@ -18,10 +18,11 @@ exports.receivedMessage = function(message) {
 
     var probability = getRandomNumber(0, 100);
 
+    // verifica si el mensaje posee algun error (ficticio) y genera el mensaje de error correspondiente.
     if ((probability < probError) || (message.subType == "ERROR")) {
         sendErrorMessage(message);
     } else {
-        logger.logInfo(message, 'cliente', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + messageSubType);
+        logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
         sendConfirmMessage(message);
     }
 };
@@ -32,7 +33,7 @@ function sendConfirmMessage(message) {
     var confirmMessage = {
         id: ++id,
         priority : maxPriority,
-        type: 'CONFIRM',
+        type: 'CONFIRMADO',
         messageId: message.id,
         messageType: message.type,
         messageSubType: message.subType || '',
@@ -40,12 +41,13 @@ function sendConfirmMessage(message) {
         description: ''
     };
 
-    logger.logInfo(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de ROMANEO ' + confirmMessage.subType);
+    logger.logTrace(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de ROMANEO ' + confirmMessage.subType);
     rabbitmq.publishMessage(confirmMessage);
 }
 
 // Genera un mensaje de ERROR y lo envia a rabbitmq.
 function sendErrorMessage(message) {
+
     var errorMessage = {
         id: ++id,
         priority : maxPriority,
@@ -57,7 +59,7 @@ function sendErrorMessage(message) {
         description: 'no se pudo generar la sentencia debido a un error'
     };
 
-    logger.logError(errorMessage, 'cliente', 'ERROR', 'no se pudo generar la sentencia debido a un error');
+    logger.logError(errorMessage, 'servidor', 'ERROR', 'no se pudo generar la sentencia debido a un error de transacción');
     rabbitmq.publishMessage(errorMessage);
 }
 

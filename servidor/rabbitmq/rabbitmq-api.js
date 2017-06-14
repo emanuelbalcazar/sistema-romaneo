@@ -11,6 +11,10 @@ var loggerQueue = require('../config_files/rabbit-config.json').loggerQueue;
 var parser = require('../parser/parser');
 var logger = require('../logger/logger');
 
+var maxPriority = require('../config_files/message-config.json').maxPriority;
+var id = 0;
+
+
 // Retorna el driver utilizado para realizar la conexion a RabbitMQ.
 exports.getDriverConnector = function() {
     return amqp;
@@ -39,7 +43,7 @@ exports.startConsumer = function() {
             ch.consume(serverQueue, function(msg) { // consumo un mensaje
                 var message = JSON.parse(msg.content);
                 //console.log(" [x] Recibido %s ", JSON.stringify(message));
-                logger.logInfo(message, 'cliente', 'RECIBIDO', 'mensaje recibido');
+                publishReceivedAck(message);
                 parser.setMessage(message);
 
             }, {noAck: true});
@@ -47,9 +51,26 @@ exports.startConsumer = function() {
     });
 };
 
+// Genera un mensaje de RECIBIDO y lo envia a encolar a rabbitmq.
+function publishReceivedAck(message) {
+
+    var received = {
+        id: ++id,
+        priority : maxPriority,
+        type: 'RECIBIDO',
+        messageId: message.id,
+        messageType: message.type,
+        messageSubType: message.subType || '',
+        imei: message.imei,
+        description: 'mensaje recibido por el servidor',
+    };
+
+    logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido');
+    publishMessage(received);
+}
+
 // Publica un mensaje en la cola del cliente de parte del servidor.
 exports.publishMessage = function(message) {
-
     amqp.connect(clientUrl, function(err, conn) {   // inicio la conexion a rabbitmq
         if (err) throw err;
 
