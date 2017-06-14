@@ -1,23 +1,16 @@
 (function () {
   'use strict';
     angular.module('controllerModule')
-    .controller('messageViewCtrl', ['$scope', '$rootScope', '$location', '$interval', '$routeParams', 'loggerSrv', messageViewCtrl]);
+    .controller('messageListCtrl', ['$scope', '$rootScope', '$location', '$interval', 'loggerSrv', messageListCtrl]);
 
-    // Controlador de la pantalla de un mensaje en particular permitiendo seguir su traza.
-    function messageViewCtrl($scope, $rootScope, $location, $interval, $routeParams, loggerSrv) {
-        if (!$routeParams.id) {
-            alert('No se encontro un id valido para el mensaje');
-            location.path('/');
-        }
+    // Controlador de la pantalla del listado de mensajes.
+    function messageListCtrl($scope, $rootScope, $location, $interval, loggerSrv) {
 
-        $scope.messageId = $routeParams.id;
-        $scope.messageType = $routeParams.type;
         $scope.allCandidates = [];
 
-        // Busca por el imei del dispositivo todos los mensajes asociados.
-        function findMessage() {
-            loggerSrv.findMessage($scope.messageId, $scope.messageType).then(function(records) {
-                $scope.allCandidates = records;
+        function findAll() {
+            loggerSrv.findAllMessages().then(function(messages) {
+                $scope.allCandidates = messages;
 
                 $scope.allCandidates.sort(function(a, b) {
                    return a.id - b.id;
@@ -27,7 +20,12 @@
             });
         }
 
-        findMessage();
+        findAll();
+
+        // Redirecciona a la vista de ver un mensaje en particular.
+        $scope.viewMessage = function(message) {
+            $location.path('message/' + message.messageId + '/' + message.messageType);
+        }
 
         // Pagination
        function paginate() {
@@ -50,5 +48,5 @@
            }
        }
 
-    } // end messageCtrl
+    } // end messageListCtrl
 })();

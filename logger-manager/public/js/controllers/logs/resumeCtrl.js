@@ -1,10 +1,10 @@
 (function () {
   'use strict';
     angular.module('controllerModule')
-    .controller('loggerCtrl', ['$scope', '$rootScope', '$location', '$interval', 'loggerSrv', loggerCtrl]);
+    .controller('resumeCtrl', ['$scope', '$rootScope', '$location', '$interval', 'loggerSrv', resumeCtrl]);
 
     // Controlador del logger.
-    function loggerCtrl($scope, $rootScope, $location, $interval, loggerSrv) {
+    function resumeCtrl($scope, $rootScope, $location, $interval, loggerSrv) {
 
         var countInterval = $interval(countAllLogs, 2000);
         var resumeInterval = $interval(getResume, 3000);

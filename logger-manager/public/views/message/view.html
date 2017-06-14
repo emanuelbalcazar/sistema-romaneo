@@ -1,0 +1,36 @@
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Mensaje {{id}} de tipo {{type}} generado por el dispositivo {{imei}}</div>
+  <div class="panel-body">
+        <h4>Mostrando {{aCandidates.length}} de {{allCandidates.length}} registros.</h4>
+  </div>
+
+  <!-- Table -->
+  <table class="table table-responsive table-bordered">
+          <thead class="thead-inverse">
+          <tr>
+              <th>Id</th>
+              <th>Origen</th>
+              <th>Estado</th>
+              <th>Nivel</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+              <th>Timestamp</th>
+          </tr>
+          </thead>
+
+          <tr ng-repeat="msg in aCandidates">
+              <td>{{msg.messageId}}</td>
+              <td>{{msg.source}}</td>
+              <td>{{msg.status}}</td>
+              <td>{{msg.level}}</td>
+              <td>{{msg.messageType}}</td>
+              <td>{{msg.description}}</td>
+              <td>{{msg.timestamp}}</td>
+          </tr>
+    </table>
+</div>
+
+<div class="col-md-6 col-md-offset-4 pagination-inverse" >
+    <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" previous-text="Anterior" next-text="Siguiente" max-size="10"></ul>
+</div>

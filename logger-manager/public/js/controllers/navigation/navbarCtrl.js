@@ -14,7 +14,7 @@
         };
 
         $scope.goToMessage = function() {
-            $location.path('message');
+            $location.path('messages');
         };
     }
 })();

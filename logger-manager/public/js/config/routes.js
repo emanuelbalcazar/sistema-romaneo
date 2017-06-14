@@ -10,8 +10,8 @@
 					title:'Inicio'
                 })
 				.when('/resume', {
-                    templateUrl: 'views/resume/resume.html',
-					controller: 'loggerCtrl',
+                    templateUrl: 'views/logs/resume.html',
+					controller: 'resumeCtrl',
 					title:'Resumen de Logs'
                 })
 				.when('/message', {
@@ -28,6 +28,11 @@
 					templateUrl: 'views/message/view.html',
 					controller: 'messageViewCtrl',
 					title:'Traza del mensaje'
+				})
+				.when('/messages', {
+					templateUrl: 'views/message/list.html',
+					controller: 'messageListCtrl',
+					title:'Listado de mensajes'
 				})
                 /* Default */
                 .otherwise({

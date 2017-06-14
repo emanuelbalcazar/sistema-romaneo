@@ -27,8 +27,9 @@
             });
         }
 
+        // Redirecciona a la vista de ver un mensaje en particular.
         $scope.viewMessage = function(message) {
-            $location.path('mobile/' + message.id + '/' + message.type);
+            $location.path('message/' + message.messageId + '/' + message.messageType);
         }
 
         // Pagination

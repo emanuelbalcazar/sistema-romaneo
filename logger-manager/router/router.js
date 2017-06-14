@@ -11,6 +11,7 @@ router.get('/', function(req, res) {
 // Retorna la cantidad de registros de logs.
 router.get('/api/logs/countAll', function(req, res) {
     logController.countAll(function(error, result) {
+        if (error) res.send(error);
         res.jsonp(result);
     });
 });
@@ -18,6 +19,7 @@ router.get('/api/logs/countAll', function(req, res) {
 // Retorna un resumen agrupado de logs.
 router.get('/api/resume', function(req, res) {
     logController.findResumen(function(error, result) {
+        if (error) res.send(error);
         res.send(result);
     });
 });
@@ -25,12 +27,24 @@ router.get('/api/resume', function(req, res) {
 // Retorna los mensajes logeados de un dispositivo en particular.
 router.get('/api/mobile/:imei', function(req, res) {
     logController.findMessagesByMobile(req.params.imei, function(error, result) {
+        if (error) res.send(error);
         res.send(result);
     });
 });
 
-// router.get('/*', function(req, res) {
-//     res.render('index.html');
-// });
+// Retorna los mensajes logeados de un dispositivo en particular.
+router.get('/api/message/:id/:type', function(req, res) {
+    logController.findMessage(req.params.id, req.params.type, function(error, result) {
+        if (error) res.send(error);
+        res.send(result);
+    });
+});
+
+router.get('/api/messages', function(req, res) {
+    logController.findAllMessages(function(error, result) {
+        if (error) res.send(error);
+        res.send(result);
+    });
+});
 
 module.exports = router;

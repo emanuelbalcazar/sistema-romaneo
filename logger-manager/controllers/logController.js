@@ -20,9 +20,28 @@ exports.findResumen = function(callback) {
     });
 }
 
+// Retorna todos los mensajes generdos por un dispositivo movil.
 exports.findMessagesByMobile = function(imei, callback) {
     logRecord.findAll({
         where: {imei: imei}
+    }).then(function(all) {
+        callback(false, all);
+    });
+}
+
+// Retorna todos los registros de un mensaje buscado por su id y tipo.
+exports.findMessage = function(id, type, callback) {
+    logRecord.findAll({
+        where: {messageId: id, messageType: type}
+    }).then(function(all) {
+        callback(false, all);
+    });
+}
+
+// Retorna todos los logs de mensajes registrados.
+exports.findAllMessages = function(callback) {
+    logRecord.findAll({
+        where: {level: 'info'}
     }).then(function(all) {
         callback(false, all);
     });
