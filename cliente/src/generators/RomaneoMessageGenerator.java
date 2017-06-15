@@ -72,7 +72,7 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
      */
     private void generateMessage() {
         RomaneoMessage msg = createMessage();
-        Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero el mensaje de Romaneo");
+        Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero el mensaje de Romaneo " + msg.getSubType());
         management.addMessageToSend(msg);
     }
 
@@ -104,6 +104,7 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
 
         msg.setId(++idRomaneo);  // TODO - eliminar, buscar otra forma de generar IDs.
         msg.setIdRomaneo(rand.nextInt(1000));
+        msg.setImei(this.imei);
         msg.setEstablishment("ERROR");
         msg.setType(Type.ROMANEO.getType());
         msg.setSubType(SubType.ERROR.getSubType());
@@ -122,6 +123,7 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
 
         msg.setId(++idRomaneo);
         msg.setIdRomaneo(rand.nextInt(1000));
+        msg.setImei(this.imei);
         msg.setEstablishment("UNPSJB");
         msg.setType(Type.ROMANEO.getType());
         msg.setSubType(getSecuence());

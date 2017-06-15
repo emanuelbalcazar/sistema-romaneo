@@ -15,7 +15,10 @@ public class Customer {
     
     public static void main(String[] args) {
                 
-        MobileDevice mobile = new MobileDevice(1);
-        mobile.start();
+        MobileDevice mobile1 = new MobileDevice(1);
+        mobile1.start();
+        
+        MobileDevice mobile2 = new MobileDevice(2);
+        mobile2.start();
     }
 }

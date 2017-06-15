@@ -16,9 +16,10 @@ public abstract class Message implements Comparable<Message> {
     private String subType;
     private String operation;
     private Date timestamp;
+    private String description;
 
     public Message() {
-
+        this.subType = "";
     }
 
     public void setId(int id) {
@@ -49,6 +50,10 @@ public abstract class Message implements Comparable<Message> {
         this.timestamp = timestamp;
     }
 
+    public void setDescription(String des) {
+        this.description = des;
+    }
+
     public int getId() {
         return id;
     }
@@ -64,7 +69,7 @@ public abstract class Message implements Comparable<Message> {
     public String getType() {
         return type;
     }
-    
+
     public String getSubType() {
         return subType;
     }
@@ -75,6 +80,10 @@ public abstract class Message implements Comparable<Message> {
 
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

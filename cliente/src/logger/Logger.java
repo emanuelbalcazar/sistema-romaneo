@@ -2,6 +2,7 @@ package logger;
 
 import java.util.Date;
 import message.Message;
+import message.ResponseMessage;
 
 /**
  * Clase encargada de generar el mensaje de log correspondiente y enviarlo a
@@ -24,6 +25,10 @@ public class Logger {
         createLogMessage(msg, source, "error", status, description);
     }
 
+    public void logTrace(Message msg, String source, String status, String description) {
+        createLogMessage(msg, source, "trace", status, description);
+    }
+
     public void logWarning(Message msg, String source, String status, String description) {
         createLogMessage(msg, source, "warning", status, description);
     }
@@ -39,12 +44,13 @@ public class Logger {
         log.setMessageId(msg.getId());
         log.setImei(msg.getImei());
         log.setMessageType(msg.getType());
+        log.setMessageSubType(getMessageSubType(msg));
         log.setLevel(level);
         log.setStatus(status);
         log.setSource(source);
         log.setDescription(description);
         log.setTimestamp(new Date());
-        
+
         sendLog(log);
     }
 
@@ -52,6 +58,15 @@ public class Logger {
         sender.sendLog(log);
     }
 
+    private String getMessageSubType(Message msg) {
+        return (msg.getSubType().length() > 0) ? msg.getSubType() : "";
+    }
+
+    /**
+     * Utilizado para la implementacion del patron de diseño Singleton.
+     *
+     * @return una unica instancia de la clase.
+     */
     public static Logger getInstance() {
         return LoggerHolder.INSTANCE;
     }

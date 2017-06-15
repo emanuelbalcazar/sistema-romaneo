@@ -86,6 +86,7 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
             System.out.println("Se envia Mensaje");
         } else {
             System.out.println("Se encuentra en el mismo sitio, NO se envia el mensaje");
+            Logger.getInstance().logTrace(msg, "cliente" ,Status.GENERATED.getStatus(), "Se encuentra en el mismo sitio, NO se envia el mensaje");
         }
 
     }

@@ -13,7 +13,7 @@ import administrator.Administrator;
  */
 public class MobileDevice {
     
-    private final int imei;
+    private int imei;
     private Administrator administrator;
     
     public MobileDevice(int imei) {

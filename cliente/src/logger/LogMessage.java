@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Clase que representa un mensaje de log
+ *
  * @author emanuel
  */
 public class LogMessage {
@@ -14,11 +15,12 @@ public class LogMessage {
     private String level;   // nivel (info, warning, error, debug)
     private String status;  // estado del mensaje (generado, enviado, recibido, confirmado)
     private String messageType;  // tipo de mensaje a loggear
-    private String description; 
+    private String messageSubType;  // tipo de mensaje a loggear
+    private String description;
     private Date timestamp;
 
     public LogMessage() {
-
+        this.messageSubType = "";
     }
 
     public void setMessageId(int messageId) {
@@ -43,6 +45,10 @@ public class LogMessage {
 
     public void setMessageType(String messageType) {
         this.messageType = messageType;
+    }
+
+    public void setMessageSubType(String messageSubType) {
+        this.messageSubType = messageSubType;
     }
 
     public void setDescription(String description) {
@@ -75,6 +81,10 @@ public class LogMessage {
 
     public String getMessageType() {
         return messageType;
+    }
+
+    public String getMessageSubType() {
+        return messageSubType;
     }
 
     public String getDescription() {

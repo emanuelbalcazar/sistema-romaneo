@@ -57,7 +57,7 @@ public class TextMessageGenerator extends MessageGeneratorGeneric {
     private void generateMessage() {
         TextMessage msg = new TextMessage();
         msg.setId(++id);
-        msg.setImei(1);
+        msg.setImei(this.imei);
         msg.setPriority(Priority.LOW_PRIORITY.getPriority());
         msg.setType(Type.TEXT.getType());
         msg.setOperation("2");

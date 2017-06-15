@@ -26,7 +26,7 @@ public class Administrator implements Runnable {
         this.connectivitySimulator = new ConnectivitySimulator();
         this.queueManagement = QueueManagement.getInstance();
         this.sender = new Sender();
-        this.consumer = new Consumer();
+        this.consumer = new Consumer(imei);
         this.loggerSender = LoggerSender.getInstance();
         this.generators = new GeneratorEngineImple(queueManagement);
         this.imei = imei;
