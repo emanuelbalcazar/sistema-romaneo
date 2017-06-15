@@ -10,6 +10,7 @@ var loggerQueue = require('../config_files/rabbit-config.json').loggerQueue;
 
 var parser = require('../parser/parser');
 var logger = require('../logger/logger');
+var rabbitmq = require('../rabbitmq/rabbitmq-api');
 
 var maxPriority = require('../config_files/message-config.json').maxPriority;
 var id = 0;
@@ -42,10 +43,9 @@ exports.startConsumer = function() {
 
             ch.consume(serverQueue, function(msg) { // consumo un mensaje
                 var message = JSON.parse(msg.content);
-                //console.log(" [x] Recibido %s ", JSON.stringify(message));
-                publishReceivedAck(message);
+                console.log(" [x] Recibido %s ", JSON.stringify(message));
                 parser.setMessage(message);
-
+                publishReceivedAck(message);
             }, {noAck: true});
         });
     });
@@ -66,18 +66,22 @@ function publishReceivedAck(message) {
     };
 
     logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido');
-    publishMessage(received);
+    rabbitmq.publishMessage(received);
 }
 
 // Publica un mensaje en la cola del cliente de parte del servidor.
 exports.publishMessage = function(message) {
+
+    var ex = 'messages';
+    var key = message.imei.toString();
+
     amqp.connect(clientUrl, function(err, conn) {   // inicio la conexion a rabbitmq
         if (err) throw err;
 
         conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
-            ch.assertQueue(clientQueue, {durable: true});
-            ch.sendToQueue(clientQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
-            console.log("\n [x] Publicado %s en %s", JSON.stringify(message), clientQueue);
+            ch.assertExchange(ex, 'direct', {durable: false});
+            ch.publish(ex, key, new Buffer(JSON.stringify(message)));
+            console.log("\n [x] Publicado %s con clave %s", JSON.stringify(message), key);
         });
     });
 };
