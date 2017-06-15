@@ -13,7 +13,9 @@
             getResume: getResume,
             findMessagesByMobile: findMessagesByMobile,
             findMessage : findMessage,
-            findAllMessages: findAllMessages
+            findAllMessages: findAllMessages,
+            findAllLogs: findAllLogs,
+            getFormattedDate: getFormattedDate
         };
 
         return service;
@@ -66,6 +68,41 @@
             function error(error) {
                 return error;
             });
+        }
+
+        // Retorna todos los registros de logs persistidos en la base de datos.
+        function findAllLogs() {
+            return $http.get(restApi + '/logs').then(function success(response) {
+                return response.data;
+            },
+            function error(error) {
+                return error;
+            });
+        }
+
+        // Formatea una fecha recibida como String a un formato: dd/mm/yyyy HH:mm:ss
+        function getFormattedDate(d) {
+            var date = new Date(d);
+
+            var year = date.getFullYear();
+
+            var month = (1 + date.getMonth()).toString();
+            month = month.length > 1 ? month : '0' + month;
+
+            var day = date.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+
+            var minutes = date.getMinutes().toString();
+            minutes = minutes.length > 1 ? minutes : '0' + minutes;
+
+            var seconds = date.getSeconds().toString();
+            seconds = seconds.length > 1 ? seconds : '0' + seconds;
+
+            var milliseconds = date.getMilliseconds().toString();
+            milliseconds = milliseconds.length > 1 ? milliseconds : '0' + milliseconds;
+
+            return day + '/' + month + '/' + year + ' - ' + date.getHours() + ':'
+                    + minutes + ':' + seconds + ':' + milliseconds;
         }
 
     } // end loggerSrv

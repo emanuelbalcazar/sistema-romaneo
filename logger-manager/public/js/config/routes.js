@@ -34,6 +34,11 @@
 					controller: 'messageListCtrl',
 					title:'Listado de mensajes'
 				})
+				.when('/logs', {
+					templateUrl: 'views/logs/list.html',
+					controller: 'logListCtrl',
+					title:'Listado de logs'
+				})
                 /* Default */
                 .otherwise({
                     redirectTo: '/'

@@ -47,4 +47,11 @@ router.get('/api/messages', function(req, res) {
     });
 });
 
+router.get('/api/logs', function(req, res) {
+    logController.findAllLogs(function(error, result) {
+        if (error) res.send(error);
+        res.send(result);
+    });
+});
+
 module.exports = router;

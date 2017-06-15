@@ -46,3 +46,11 @@ exports.findAllMessages = function(callback) {
         callback(false, all);
     });
 }
+
+exports.findAllLogs = function(callback) {
+    logRecord.findAll({
+
+    }).then(function(all) {
+        callback(false, all);
+    });
+}

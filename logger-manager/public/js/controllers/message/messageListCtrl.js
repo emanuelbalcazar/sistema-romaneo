@@ -8,6 +8,9 @@
 
         $scope.allCandidates = [];
 
+        var findAllInterval = $interval(findAll, 2000);
+
+        // Retorna todos los mensajes registrados en la base de datos.
         function findAll() {
             loggerSrv.findAllMessages().then(function(messages) {
                 $scope.allCandidates = messages;
@@ -19,8 +22,6 @@
                 paginate();
             });
         }
-
-        findAll();
 
         // Redirecciona a la vista de ver un mensaje en particular.
         $scope.viewMessage = function(message) {
@@ -46,6 +47,24 @@
 
                $scope.aCandidates = pagedData;
            }
+       }
+
+       // Si el usuario abandona la pagina, detiene la ejecucion del $interval
+       $scope.$watch(function() {
+           return $location.path();
+       }, function(newPath, oldPath) {
+           if (newPath != oldPath) {
+               cancelIntervals();
+           }
+       });
+
+       // cancela la ejecucion de la funcion $interval
+       function cancelIntervals() {
+           $interval.cancel(findAllInterval);
+       }
+
+       $scope.formatedDate = function(d) {
+           return loggerSrv.getFormattedDate(d);
        }
 
     } // end messageListCtrl

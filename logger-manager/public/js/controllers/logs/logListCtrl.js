@@ -1,25 +1,18 @@
 (function () {
   'use strict';
     angular.module('controllerModule')
-    .controller('messageViewCtrl', ['$scope', '$rootScope', '$location', '$interval', '$routeParams', 'loggerSrv', messageViewCtrl]);
+    .controller('logListCtrl', ['$scope', '$rootScope', '$location', '$interval', 'loggerSrv', logListCtrl]);
 
-    // Controlador de la pantalla de un mensaje en particular permitiendo seguir su traza.
-    function messageViewCtrl($scope, $rootScope, $location, $interval, $routeParams, loggerSrv) {
-        if (!$routeParams.id) {
-            alert('No se encontro un id valido para el mensaje');
-            location.path('/');
-        }
-
-        $scope.messageId = $routeParams.id;
-        $scope.messageType = $routeParams.type;
+    // Controlador de la pantalla de logs.
+    function logListCtrl($scope, $rootScope, $location, $interval, loggerSrv) {
         $scope.allCandidates = [];
 
-        var findMessageInterval = $interval(findMessage, 2000);
+        var findAllInterval = $interval(findAll, 2000);
 
-        // Busca por el imei del dispositivo todos los mensajes asociados.
-        function findMessage() {
-            loggerSrv.findMessage($scope.messageId, $scope.messageType).then(function(records) {
-                $scope.allCandidates = records;
+        // Retorna todos los logs registrados en la base de datos.
+        function findAll() {
+            loggerSrv.findAllLogs().then(function(logs) {
+                $scope.allCandidates = logs;
 
                 $scope.allCandidates.sort(function(a, b) {
                    return a.id - b.id;
@@ -59,14 +52,14 @@
            }
        });
 
-        // cancela la ejecucion de la funcion $interval
-        function cancelIntervals() {
-           $interval.cancel(findMessageInterval);
-        }
+       // cancela la ejecucion de la funcion $interval
+       function cancelIntervals() {
+           $interval.cancel(findAllInterval);
+       }
 
        $scope.formatedDate = function(d) {
            return loggerSrv.getFormattedDate(d);
-        }
+       }
 
-    } // end messageCtrl
+   } // end logCtrl
 })();

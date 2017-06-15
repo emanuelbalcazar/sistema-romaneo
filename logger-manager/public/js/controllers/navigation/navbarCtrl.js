@@ -16,5 +16,9 @@
         $scope.goToMessage = function() {
             $location.path('messages');
         };
+
+        $scope.goToLogs = function() {
+            $location.path('logs');
+        };
     }
 })();

@@ -3,7 +3,7 @@
     angular.module('controllerModule')
     .controller('resumeCtrl', ['$scope', '$rootScope', '$location', '$interval', 'loggerSrv', resumeCtrl]);
 
-    // Controlador del logger.
+    // Controlador de la pantalla de resumen de logs.
     function resumeCtrl($scope, $rootScope, $location, $interval, loggerSrv) {
 
         var countInterval = $interval(countAllLogs, 2000);
@@ -35,8 +35,7 @@
                         $scope.data[resume[i].imei] = {imei: resume[i].imei}; // si no existe el objeto con dicho imei, lo crea.
                     }
 
-                    // if ($scope.data[resume[i].status])
-                        $scope.data[resume[i].imei][resume[i].status] = resume[i].logs;
+                    $scope.data[resume[i].imei][resume[i].status] = resume[i].logs;
                 }
 
                 $scope.allCandidates = $scope.data;

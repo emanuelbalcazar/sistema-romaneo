@@ -14,6 +14,8 @@
         $scope.imei = $routeParams.id;
         $scope.allCandidates = [];
 
+        var findMessagesByMobileInterval = $interval(findMessagesByMobile, 2000);
+
         // Busca por el imei del dispositivo todos los mensajes asociados.
         function findMessagesByMobile() {
             loggerSrv.findMessagesByMobile($scope.imei).then(function(messages) {
@@ -53,7 +55,23 @@
            }
        }
 
-        findMessagesByMobile();
+       // Si el usuario abandona la pagina, detiene la ejecucion del $interval
+       $scope.$watch(function() {
+           return $location.path();
+       }, function(newPath, oldPath) {
+           if (newPath != oldPath) {
+               cancelIntervals();
+           }
+       });
+
+        // cancela la ejecucion de la funcion $interval
+        function cancelIntervals() {
+           $interval.cancel(findMessagesByMobileInterval);
+        }
+
+        $scope.formatedDate = function(d) {
+            return loggerSrv.getFormattedDate(d);
+        }
 
     } // end mobileViewCtrl
 })();
