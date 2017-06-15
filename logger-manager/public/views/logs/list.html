@@ -3,6 +3,10 @@
   <div class="panel-heading">Listado de registros de logs</div>
   <div class="panel-body">
         <h4>Mostrando {{aCandidates.length}} de {{allCandidates.length}} registros.</h4>
+        <button type="button" class="btn btn-danger pull-right" data-ng-click="deleteAllLogs()" disabled="true">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            &nbsp;Eliminar todo
+        </button>
   </div>
 
   <!-- Table -->

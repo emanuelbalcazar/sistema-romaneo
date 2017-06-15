@@ -1,13 +1,11 @@
 (function () {
   'use strict';
     angular.module('controllerModule')
-    .controller('logListCtrl', ['$scope', '$rootScope', '$location', '$interval', 'loggerSrv', logListCtrl]);
+    .controller('logListCtrl', ['$scope', '$rootScope', '$location', 'loggerSrv', '$uibModal', logListCtrl]);
 
     // Controlador de la pantalla de logs.
-    function logListCtrl($scope, $rootScope, $location, $interval, loggerSrv) {
+    function logListCtrl($scope, $rootScope, $location, loggerSrv, $modal) {
         $scope.allCandidates = [];
-
-        var findAllInterval = $interval(findAll, 2000);
 
         // Retorna todos los logs registrados en la base de datos.
         function findAll() {
@@ -21,6 +19,8 @@
                 paginate();
             });
         }
+
+        findAll();
 
         // Pagination
        function paginate() {
@@ -43,23 +43,9 @@
            }
        }
 
-       // Si el usuario abandona la pagina, detiene la ejecucion del $interval
-       $scope.$watch(function() {
-           return $location.path();
-       }, function(newPath, oldPath) {
-           if (newPath != oldPath) {
-               cancelIntervals();
-           }
-       });
-
-       // cancela la ejecucion de la funcion $interval
-       function cancelIntervals() {
-           $interval.cancel(findAllInterval);
-       }
-
-       $scope.formatedDate = function(d) {
+        $scope.formatedDate = function(d) {
            return loggerSrv.getFormattedDate(d);
-       }
+        }
 
    } // end logCtrl
 })();
