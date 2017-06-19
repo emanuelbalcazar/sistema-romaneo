@@ -32,7 +32,7 @@ router.get('/api/mobile/:imei', function(req, res) {
     });
 });
 
-// Retorna los mensajes logeados de un dispositivo en particular.
+// Retorna los registros de un mensaje buscado por su ID y TIPO.
 router.get('/api/message/:id/:type', function(req, res) {
     logController.findMessage(req.params.id, req.params.type, function(error, result) {
         if (error) res.send(error);
@@ -40,6 +40,7 @@ router.get('/api/message/:id/:type', function(req, res) {
     });
 });
 
+// Retorna todos los mensajes registrados.
 router.get('/api/messages', function(req, res) {
     logController.findAllMessages(function(error, result) {
         if (error) res.send(error);
@@ -47,6 +48,7 @@ router.get('/api/messages', function(req, res) {
     });
 });
 
+// Retorna todos los logs registrados.
 router.get('/api/logs', function(req, res) {
     logController.findAllLogs(function(error, result) {
         if (error) res.send(error);

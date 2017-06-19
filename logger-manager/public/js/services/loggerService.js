@@ -15,7 +15,8 @@
             findMessage : findMessage,
             findAllMessages: findAllMessages,
             findAllLogs: findAllLogs,
-            getFormattedDate: getFormattedDate
+            getFormattedDate: getFormattedDate,
+            filter: filter
         };
 
         return service;
@@ -103,6 +104,19 @@
 
             return day + '/' + month + '/' + year + ' - ' + date.getHours() + ':'
                     + minutes + ':' + seconds + ':' + milliseconds;
+        }
+
+        // Filtra un arreglo de elementos.
+        function filter(logs, filter) {
+            if (filter == "") {
+                return logs;
+            }
+
+            var result = logs.filter(function(log) {
+                return log.level == filter;
+            });
+
+            return result;
         }
 
     } // end loggerSrv

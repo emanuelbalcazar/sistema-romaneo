@@ -26,7 +26,6 @@ exports.startConsumer = function() {
 
 // Persiste el mensaje de tipo Log en la base de datos.
 function persistMessage(message) {
-
     logRecord.create(message).then(function(data) {
         //console.log('Insertado ', data);
     });

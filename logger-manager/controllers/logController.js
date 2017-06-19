@@ -33,6 +33,7 @@ exports.findMessagesByMobile = function(imei, callback) {
 exports.findMessage = function(id, type, callback) {
     logRecord.findAll({
         where: {messageId: id, messageType: type}
+    
     }).then(function(all) {
         callback(false, all);
     });
@@ -47,6 +48,7 @@ exports.findAllMessages = function(callback) {
     });
 }
 
+// Retorna todos los registros de logs.
 exports.findAllLogs = function(callback) {
     logRecord.findAll({
 

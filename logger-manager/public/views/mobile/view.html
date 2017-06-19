@@ -3,6 +3,35 @@
   <div class="panel-heading">Dispositivo {{imei}}</div>
   <div class="panel-body">
         <h4>Mostrando {{aCandidates.length}} de {{allCandidates.length}} mensajes.</h4>
+
+        <button type="button" data-ng-click="refresh()"  class="btn btn-primary pull-right">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            &nbsp;Refrescar
+        </button>
+
+        <button type="button" data-ng-click="back()"  class="btn btn-primary pull-left" data-ng-click="back()">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            &nbsp;Volver
+        </button>
+
+        <div class="dropdown pull-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-filter"></span>
+                &nbsp;Filtrar
+            <span class="caret"></span>
+            </button>
+
+            &nbsp;
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a data-ng-click="filter('')">Sin filtros</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a data-ng-click="filter('info')">Info</a></li>
+                <li><a data-ng-click="filter('trace')">Trace</a></li>
+                <li><a data-ng-click="filter('error')">Error</a></li>
+              </ul>
+        </div>
+
   </div>
 
   <!-- Table -->
@@ -31,12 +60,12 @@
               <td>
                 <button type="button" class="btn btn-info" data-ng-click="viewMessage(msg)">
                     <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                 Ver mensaje</button>
+                &nbsp;Ver mensaje</button>
               </td>
           </tr>
     </table>
 </div>
 
-<div class="col-md-6 col-md-offset-4 pagination-inverse" >
+<div class="col-md-8 col-md-offset-4 pagination-inverse" >
     <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" previous-text="Anterior" next-text="Siguiente" max-size="10"></ul>
 </div>

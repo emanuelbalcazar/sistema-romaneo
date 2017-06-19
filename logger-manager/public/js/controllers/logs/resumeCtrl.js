@@ -6,8 +6,8 @@
     // Controlador de la pantalla de resumen de logs.
     function resumeCtrl($scope, $rootScope, $location, $interval, loggerSrv) {
 
-        var countInterval = $interval(countAllLogs, 2000);
-        var resumeInterval = $interval(getResume, 3000);
+        var countInterval = $interval(countAllLogs, 1000);
+        var resumeInterval = $interval(getResume, 2000);
 
         $scope.running = true;
         $scope.quantity = 'Conectando...';
@@ -68,7 +68,7 @@
        function paginate() {
            $scope.totalItems = $scope.allCandidates.length;
            $scope.currentPage = 1;
-           $scope.itemsPerPage = 6;
+           $scope.itemsPerPage = 5;
 
            $scope.$watch("currentPage", function() {
                setPagingData($scope.currentPage);

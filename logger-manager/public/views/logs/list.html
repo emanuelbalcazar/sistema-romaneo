@@ -3,10 +3,18 @@
   <div class="panel-heading">Listado de registros de logs</div>
   <div class="panel-body">
         <h4>Mostrando {{aCandidates.length}} de {{allCandidates.length}} registros.</h4>
-        <button type="button" class="btn btn-danger pull-right" data-ng-click="deleteAllLogs()" disabled="true">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            &nbsp;Eliminar todo
+
+        <button type="button" data-ng-click="refresh()"  class="btn btn-primary pull-right">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            &nbsp;Refrescar
         </button>
+
+        <button type="button" data-ng-click="back()"  class="btn btn-primary pull-left" data-ng-click="back()">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            &nbsp;Volver
+        </button>
+
+
   </div>
 
   <!-- Table -->
@@ -35,6 +43,6 @@
     </table>
 </div>
 
-<div class="col-md-6 col-md-offset-4 pagination-inverse" >
+<div class="col-md-8 col-md-offset-4 pagination-inverse" >
     <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" previous-text="Anterior" next-text="Siguiente" max-size="10"></ul>
 </div>
