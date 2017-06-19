@@ -33,7 +33,7 @@ public class Configuration {
     public static final String GEO_SLEEP = "GeolocationGenerator.sleep";
 
     public static final String CONSUMER_VIRTUALHOST = "Consumer.virtualhost";
-    public static final String CONSUMER_QUEUE = "Consumer.queue";
+    public static final String EXCHANGE = "Consumer.exchange";
     
     public static final String GEO_RANDOM_MOVE_PHONE = "GeolocationGenerator.randomMovePhone";
     public static final String GEO_MOVE_PHONE = "GeolocationGenerator.movePhone";

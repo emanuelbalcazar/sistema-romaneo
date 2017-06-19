@@ -62,7 +62,7 @@ public class TextMessageGenerator extends MessageGeneratorGeneric {
         msg.setType(Type.TEXT.getType());
         msg.setOperation("2");
         msg.setText("Mensaje de Texto: Hola Mundo");
-        Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero el mensaje de Texto");
+        Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero un mensaje de Texto");
 
         management.addMessageToSend(msg);
     }

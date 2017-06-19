@@ -96,7 +96,7 @@ public abstract class Message implements Comparable<Message> {
 
     @Override
     public String toString() {
-        return "Id: " + id + ", imei: " + imei + ", type: " + type;
+        return "Message{" + "id=" + id + ", imei=" + imei + ", type=" + type + ", subType=" + subType + ", operation=" + operation + ", description=" + description + '}';
     }
 
 }

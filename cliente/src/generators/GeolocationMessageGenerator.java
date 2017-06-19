@@ -83,10 +83,9 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
             management.addMessageToSend(msg);
             beforeLatitude = msg.getLatitude();
             beforeLongitude = msg.getLongitude();
-            System.out.println("Se envia Mensaje");
         } else {
-            System.out.println("Se encuentra en el mismo sitio, NO se envia el mensaje");
-            Logger.getInstance().logTrace(msg, "cliente" ,Status.GENERATED.getStatus(), "Se encuentra en el mismo sitio, NO se envia el mensaje");
+            System.out.println("Se encuentra en el mismo sitio, NO se enviara el mensaje");
+            Logger.getInstance().logTrace(msg, "cliente" ,Status.GENERATED.getStatus(), "Se encuentra en el mismo sitio, NO se enviara el mensaje");
         }
 
     }

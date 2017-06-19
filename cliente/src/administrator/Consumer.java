@@ -18,16 +18,16 @@ import message.ResponseMessage;
 import message.TextMessage;
 
 /**
- *
- * @author emanuel
+ * Clase encargada de consumir de la cola de Rabbit los mensajes correspondientes
+ * al dispositivo movil en ejecucion.
+ * 
  */
 public class Consumer implements Runnable {
 
     private final String SERVER_HOST = Configuration.getInstance().getProperty(Configuration.SERVER_HOST);
     private final String SERVER_PORT = Configuration.getInstance().getProperty(Configuration.SERVER_PORT);
-    //private final String CONSUMER_QUEUE = Configuration.getInstance().getProperty(Configuration.CONSUMER_QUEUE);
     private final String CONSUMER_VIRTUALHOST = Configuration.getInstance().getProperty(Configuration.CONSUMER_VIRTUALHOST);
-    private String QUEUE_NAME;
+    private String EXCHANGE_NAME = Configuration.getInstance().getProperty(Configuration.EXCHANGE);
 
     private ConnectionFactory factory;
     private Connection connection;
@@ -36,7 +36,9 @@ public class Consumer implements Runnable {
     private Thread thread;
     private QueueManagement management;
     private final int imei;
+    private String queueName;
 
+    
     public Consumer(int i) {
         this.gson = new Gson();
         this.management = QueueManagement.getInstance();
@@ -48,8 +50,7 @@ public class Consumer implements Runnable {
      *
      */
     private void connect() {
-        final String EXCHANGE_NAME = "messages";
-        System.out.println(">>> " + this.imei);
+
         try {
             factory = new ConnectionFactory();
             factory.setHost(SERVER_HOST);
@@ -59,11 +60,10 @@ public class Consumer implements Runnable {
             channel = connection.createChannel();
 
             channel.exchangeDeclare(EXCHANGE_NAME, "direct");
-            QUEUE_NAME = channel.queueDeclare().getQueue();
+            queueName = channel.queueDeclare().getQueue();
+            channel.queueBind(queueName, EXCHANGE_NAME, Integer.toString(imei));
 
-            channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, Integer.toString(imei));
-
-            System.out.println("Conexion a " + QUEUE_NAME + " establecida con Key: " + imei);
+            System.out.println("Conexion a " + queueName + " establecida con Key: " + imei);
         } catch (IOException | TimeoutException ex) {
             System.err.println("Error al abrir la conexion en logger sender: " + ex.getMessage());
         }
@@ -102,13 +102,14 @@ public class Consumer implements Runnable {
 
     /**
      * Consume los mensajes dejados por el servidor para el cliente.
-     *
+     * Los mensajes se consumen de la cola indicada por el Exchange acorde a
+     * la clave recibida como argumento durante la conexion.
      */
     private void consume() {
 
         try {
             QueueingConsumer consumer = new QueueingConsumer(channel);
-            channel.basicConsume(QUEUE_NAME, true, consumer); // true - remueve el mensaje una vez consumido de la cola.
+            channel.basicConsume(queueName, true, consumer); // true - remueve el mensaje una vez consumido de la cola.
 
             while (true) {
                 QueueingConsumer.Delivery delivery = consumer.nextDelivery();
@@ -117,16 +118,24 @@ public class Consumer implements Runnable {
 
                 System.out.println(" [X] Received " + responseMessage.toString());
                 Message res = adapteResponseMessage(responseMessage);
-                Logger.getInstance().logTrace(res, messageJson, messageJson, messageJson);
+                System.out.println("RES " + res.toString());
+                Logger.getInstance().logTrace(res, "cliente", Status.RECEIVED.getStatus(), "Mensaje recibido de por parte del servidor.");
             }
 
         } catch (IOException | InterruptedException | ShutdownSignalException | ConsumerCancelledException | JsonSyntaxException ex) {
             System.err.println("Error al consumir mensaje: " + ex.getMessage());
         }
     }
-
+    
+    /**
+     * Adapta un mensaje de tipo ResponseMessage.java a un mensaje valido para el Logger.
+     * 
+     * @param response mensaje de respuesta del servidor.
+     * @return un mensaje que extiende de Message.java valido para ser 
+     * utilizado por el Logger.
+     */
     private Message adapteResponseMessage(ResponseMessage response) {
-        Message result = new TextMessage();
+        Message result = new TextMessage();  // Porque de texto? no se, pero es util.
         
         result.setId(response.getMessageId());
         result.setImei(response.getImei());
