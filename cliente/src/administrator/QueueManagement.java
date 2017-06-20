@@ -1,8 +1,10 @@
 package administrator;
 
 import configuration.Configuration;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 import message.Message;
+import message.ResponseMessage;
 
 /**
  * Clase encargada de manejar las colas de mensajes del dispositivo. Esta clase
@@ -50,7 +52,7 @@ public class QueueManagement {
         if (!queueToSend.isEmpty()) {
             return queueToSend.poll();
         }
-        
+
         return null;
     }
 
@@ -63,6 +65,33 @@ public class QueueManagement {
         sentQueue.add(msg);
     }
 
+    public void resendMessage(ResponseMessage resend) {
+        for (Message next : sentQueue) {
+            if (next.getId() == resend.getMessageId()) {
+                sentQueue.remove(next);
+                queueToSend.add(next);
+            }
+        }
+    }
+
+    public void changeToReceivedStatus(ResponseMessage msg) {
+        for (Message next : sentQueue) {
+            if (next.getId() == msg.getMessageId()) {
+                sentQueue.remove(next);
+                receivedQueue.add(next);
+            }
+        }
+    }
+
+    public void changeToConfirmedStatus(ResponseMessage msg) {
+        for (Message next : receivedQueue) {
+            if (next.getId() == msg.getMessageId()) {
+                receivedQueue.remove(next);
+                confirmedQueue.add(next);
+            }
+        }
+    }
+
     /**
      * Utilizado para la implementacion del patron de diseño Singleton.
      *
@@ -73,6 +102,7 @@ public class QueueManagement {
     }
 
     private static class ConfigurationHolder {
+
         private static final QueueManagement INSTANCE = new QueueManagement();
     }
 

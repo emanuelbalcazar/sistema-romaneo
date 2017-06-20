@@ -13,6 +13,7 @@ public class ResponseMessage {
     private String messageType;
     private String messageSubType;
     private int imei;
+    private String text;
     private String description;
 
     
@@ -52,6 +53,9 @@ public class ResponseMessage {
         this.description = description;
     }
 
+    public String getText() {
+        return text;
+    }
     
     public int getId() {
         return id;

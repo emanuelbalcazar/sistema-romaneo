@@ -16,6 +16,7 @@ import logger.Status;
 import message.Message;
 import message.ResponseMessage;
 import message.TextMessage;
+import validators.Parser;
 
 /**
  * Clase encargada de consumir de la cola de Rabbit los mensajes correspondientes
@@ -37,12 +38,13 @@ public class Consumer implements Runnable {
     private QueueManagement management;
     private final int imei;
     private String queueName;
-
+    private Parser parser;
     
     public Consumer(int i) {
         this.gson = new Gson();
         this.management = QueueManagement.getInstance();
         this.imei = i;
+        this.parser = new Parser();
     }
 
     /**
@@ -120,6 +122,7 @@ public class Consumer implements Runnable {
                 Message res = adapteResponseMessage(responseMessage);
                 System.out.println("RES " + res.toString());
                 Logger.getInstance().logTrace(res, "cliente", Status.RECEIVED.getStatus(), "Mensaje recibido de por parte del servidor.");
+                parser.parseMessage(responseMessage);
             }
 
         } catch (IOException | InterruptedException | ShutdownSignalException | ConsumerCancelledException | JsonSyntaxException ex) {
