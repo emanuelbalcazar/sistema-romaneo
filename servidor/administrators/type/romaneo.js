@@ -61,6 +61,7 @@ function sendErrorMessage(message) {
 
     logger.logError(errorMessage, 'servidor', 'ERROR', 'no se pudo generar la sentencia debido a un error de transacción');
     rabbitmq.publishMessage(errorMessage);
+    rabbitmq.publishMessageError(errorMessage);
 }
 
 // Retorna un numero aleatorio entre un rango de numeros pasados como parametros.

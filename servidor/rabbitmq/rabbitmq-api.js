@@ -7,6 +7,9 @@ var loggerUrl = require('../config_files/rabbit-config.json').loggerUrl;
 var serverQueue = require('../config_files/rabbit-config.json').serverQueue;
 var clientQueue = require('../config_files/rabbit-config.json').clientQueue;
 var loggerQueue = require('../config_files/rabbit-config.json').loggerQueue;
+var sentsQueue = require('../config_files/rabbit-config.json').sentsQueue;
+var confirmsQueue = require('../config_files/rabbit-config.json').confirmsQueue;
+var errorsQueue = require('../config_files/rabbit-config.json').errorsQueue;
 
 var parser = require('../parser/parser');
 var logger = require('../logger/logger');
@@ -67,6 +70,7 @@ function publishReceivedAck(message) {
 
     logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido');
     rabbitmq.publishMessage(received);
+
 }
 
 // Publica un mensaje en la cola del cliente de parte del servidor.
@@ -98,3 +102,67 @@ exports.publishLoggerMessage = function(message) {
         });
     });
 };
+
+// Publica mensaje enviado en la cola de enviados de rabbitmq
+exports.publishMessageSent = function(message){
+
+      amqp.connect(serverUrl, function(err, conn) {   // inicio la conexion a rabbitmq
+          if (err) throw err;
+
+          conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
+              ch.assertQueue(sentsQueue, {durable: true});
+              ch.sendToQueue(sentsQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
+              console.log("\n [x] Publicada en la cola de enviados %s", JSON.stringify(message));
+          });
+      });
+}
+
+
+// Publica mensaje de error en la cola de error de rabbitmq
+exports.publishMessageError = function(message){
+
+      amqp.connect(serverUrl, function(err, conn) {   // inicio la conexion a rabbitmq
+          if (err) throw err;
+
+          conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
+              ch.assertQueue(errorsQueue, {durable: true});
+              ch.sendToQueue(errorsQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
+              console.log("\n [x] Publicada en la cola de enviados %s", JSON.stringify(message));
+          });
+      });
+}
+
+// Publica mensaje confirmado en la cola de confirmados de rabbitmq
+exports.publishMessageConfirm = function(message){
+
+      amqp.connect(serverUrl, function(err, conn) {   // inicio la conexion a rabbitmq
+          if (err) throw err;
+
+          conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
+              ch.assertQueue(confirmadosQueue, {durable: true});
+              ch.sendToQueue(confirmadosQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
+              console.log("\n [x] Publicada en la cola de confirmados %s", JSON.stringify(message));
+          });
+      });
+}
+
+// Consume mensajes de la cola enviados de rabbitmq que fueron confirmados para poder enviarlos a la cola correspondiente
+exports.consumerMessageSend = function(message){
+
+      amqp.connect(serverUrl, function(err, conn) {   // inicio la conexion a rabbitmq
+          if (err) throw err;
+
+          conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
+              ch.assertQueue(enviadosQueue, {durable: true});
+              console.log(" [*] Servidor esperando mensajes en", enviadosQueue);
+
+              ch.consume(enviadosQueue, function(msg) { // consumo un mensaje
+                  var message = JSON.parse(msg.content);
+                  console.log(" [x] Recibido %s ", JSON.stringify(message));
+                  //parser.setMessage(message);
+                  //publishReceivedAck(message);
+                  publishMessageConfirm(message);
+              }, {noAck: true});
+          });
+      });
+}

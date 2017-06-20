@@ -20,6 +20,7 @@ exports.setMessage = function(message) {
         validateTypeMessage(message);
     } else {
         generateErrorMessage(ajv.errorsText(), message);
+
     }
 };
 
@@ -52,4 +53,5 @@ function generateErrorMessage(error, message) {
 
     logger.logError(message, 'servidor', 'formato de mensaje invalido: ' + error);
     rabbitmq.publishMessage(errorMessage);
+    rabbitmq.publishMessageError(errorMessage);
 }

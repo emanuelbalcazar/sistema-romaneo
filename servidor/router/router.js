@@ -13,6 +13,7 @@ router.get('/', function(request, response) {
 router.post('/api/new', function(request, response) {
     console.log(request.body.data);
     rabbit.publishMessage(request.body.data);
+    rabbit.publishMessageSent(request.body.data);
     response.sendStatus(200);
 });
 

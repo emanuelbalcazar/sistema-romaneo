@@ -1,6 +1,9 @@
 {
     "serverUrl": "amqp://localhost:5672/server",
     "serverQueue": "server",
+    "sentsQueue": "sents",
+    "errorsQueue": "errors",
+    "confirmsQueue": "confirms",
     "clientUrl": "amqp://localhost:5672/client",
     "clientQueue": "client",
     "loggerUrl": "amqp://localhost:5672/logger",
