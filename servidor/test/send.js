@@ -6,22 +6,26 @@
 var amqp = require('amqplib/callback_api');
 var serverUrl = require('../config_files/rabbit-config.json').serverUrl;
 var serverQueue = require('../config_files/rabbit-config.json').serverQueue;
+var errorsQueue = require('../config_files/rabbit-config.json').errorsQueue;
 
 amqp.connect(serverUrl, function(err, conn) {
 
     if (err) throw err;
 
-    conn.createChannel(function(err, ch) {
-        var message = {};
-        message.id = 1;
-        message.imei = 1;
-        message.type = 'geolocalizacion';
-        message.latitude = 2342342;
-        message.longitude = 3432342;
+    var message = {
+      id:1,
+      imei: 1,
+      priority: 4,
+      type: 'ERROR',
+      subType:'',
+      operation:'',
+      timestamp: new Date()  
+    }
 
-        ch.assertQueue(serverQueue, {durable: true});
-        ch.sendToQueue(serverQueue, new Buffer(JSON.stringify(message)));
+        conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
+            ch.assertQueue(errorsQueue, {durable: true});
+            ch.sendToQueue(errorsQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
 
-        console.log(" [x] Enviado " + JSON.stringify(message));
-    });
+        });
+
 });

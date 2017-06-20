@@ -12,5 +12,9 @@
         $scope.goToMessageSender = function() {
             $location.path('sender');
         };
+
+        $scope.goToReviewMessageErroneous = function() {
+            $location.path('review');
+        };
     }
 })();

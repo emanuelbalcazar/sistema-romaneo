@@ -18,6 +18,7 @@ var rabbitmq = require('../rabbitmq/rabbitmq-api');
 var maxPriority = require('../config_files/message-config.json').maxPriority;
 var id = 0;
 
+var msgError = [];
 
 // Retorna el driver utilizado para realizar la conexion a RabbitMQ.
 exports.getDriverConnector = function() {
@@ -50,6 +51,14 @@ exports.startConsumer = function() {
                 parser.setMessage(message);
                 publishReceivedAck(message);
             }, {noAck: true});
+
+            ch.assertQueue(errorsQueue, {durable: true});
+
+            ch.consume(errorsQueue, function(msg) { // consumo un mensaje
+                var message = JSON.parse(msg.content);
+                  msgError.push(message);
+            }, {noAck: true});
+
         });
     });
 };
@@ -166,3 +175,9 @@ exports.consumerMessageSend = function(message){
           });
       });
 }
+
+// Inicia el consumo de mensajes desde la cola del servidor en RabbitMQ.
+exports.getAllErrorMessages = function() {
+
+    return msgError;
+};

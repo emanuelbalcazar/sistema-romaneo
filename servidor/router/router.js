@@ -17,4 +17,11 @@ router.post('/api/new', function(request, response) {
     response.sendStatus(200);
 });
 
+// ruta principal.
+router.get('/api/findAll', function(request, response) {
+  var errorM = rabbit.getAllErrorMessages();
+
+    response.json(errorM);
+});
+
 module.exports = router;

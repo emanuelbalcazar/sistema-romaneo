@@ -9,7 +9,8 @@
 
         // Funciones que provee el servicio.
         var service = {
-            senderMsg: senderMsg
+            senderMsg: senderMsg,
+            findAll:findAll
         };
 
         return service;
@@ -22,6 +23,16 @@
             function error(error) {
                 return error;
             });
+        }
+
+        //Obtiene todos los mensajes de la cola de Error.
+        function findAll(){
+          return $http.get(restApi + '/findAll').then(function success(response) {
+              return response.data;
+          },
+          function error(error) {
+              return error;
+          });
         }
 
 

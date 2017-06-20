@@ -14,6 +14,11 @@
 									controller: 'messageSenderCtrl',
 									title:'Enviar Mensajes'
 				                })
+								.when('/review', {
+														templateUrl: 'views/ReviewMessageErroneous.html',
+									controller: 'reviewMessageCtrl',
+									title:'Revision de Mensajes'
+												})
                 /* Default */
                 .otherwise({
                     redirectTo: '/'
