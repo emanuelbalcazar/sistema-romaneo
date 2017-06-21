@@ -58,6 +58,8 @@ public class Consumer implements Runnable {
             factory.setHost(SERVER_HOST);
             factory.setPort(Integer.parseInt(SERVER_PORT));
             factory.setVirtualHost(CONSUMER_VIRTUALHOST);
+            factory.setPassword("admin");
+            factory.setUsername("admin");
             connection = factory.newConnection();
             channel = connection.createChannel();
 
@@ -111,7 +113,7 @@ public class Consumer implements Runnable {
 
         try {
             QueueingConsumer consumer = new QueueingConsumer(channel);
-            channel.basicConsume(queueName, true, consumer); // true - remueve el mensaje una vez consumido de la cola.
+            channel.basicConsume(queueName, false, consumer); // true - remueve el mensaje una vez consumido de la cola.
 
             while (true) {
                 QueueingConsumer.Delivery delivery = consumer.nextDelivery();
@@ -122,7 +124,7 @@ public class Consumer implements Runnable {
                 Message res = adapteResponseMessage(responseMessage);
                 System.out.println("RES " + res.toString());
                 Logger.getInstance().logTrace(res, "cliente", Status.RECEIVED.getStatus(), "Mensaje recibido de por parte del servidor.");
-                parser.parseMessage(responseMessage);
+               // parser.parseMessage(responseMessage);
             }
 
         } catch (IOException | InterruptedException | ShutdownSignalException | ConsumerCancelledException | JsonSyntaxException ex) {

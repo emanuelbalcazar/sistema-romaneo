@@ -36,6 +36,8 @@ public class LoggerSender {
             factory.setHost(LOGGER_HOST);
             factory.setPort(Integer.parseInt(LOGGER_PORT));
             factory.setVirtualHost(LOGGER_VIRTUALHOST);
+            factory.setPassword("admin");
+            factory.setUsername("admin");
             connection = factory.newConnection();
             channel = connection.createChannel();
             channel.queueDeclare(LOGGER_QUEUE, true, false, false, null);

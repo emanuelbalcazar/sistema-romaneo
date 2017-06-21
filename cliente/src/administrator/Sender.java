@@ -42,6 +42,8 @@ public class Sender {
             factory.setHost(SERVER_HOST);
             factory.setPort(Integer.parseInt(SERVER_PORT));
             factory.setVirtualHost(VIRTUAL_HOST);
+            factory.setPassword("admin");
+            factory.setUsername("admin");
             connection = factory.newConnection();
             channel = connection.createChannel();
             channel.queueDeclare(SERVER_QUEUE, true, false, false, null);
