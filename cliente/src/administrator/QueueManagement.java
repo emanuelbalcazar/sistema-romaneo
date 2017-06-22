@@ -66,29 +66,45 @@ public class QueueManagement {
     }
 
     public void resendMessage(ResponseMessage resend) {
+        Message aux = null;
+
         for (Message next : sentQueue) {
             if (next.getId() == resend.getMessageId()) {
-                sentQueue.remove(next);
+                aux = next;
                 queueToSend.add(next);
             }
+        }
+
+        if (aux != null) {
+            sentQueue.remove(aux);
         }
     }
 
     public void changeToReceivedStatus(ResponseMessage msg) {
+        Message aux = null;
+
         for (Message next : sentQueue) {
             if (next.getId() == msg.getMessageId()) {
-                sentQueue.remove(next);
                 receivedQueue.add(next);
             }
+        }
+
+        if (aux != null) {
+            sentQueue.remove(aux);
         }
     }
 
     public void changeToConfirmedStatus(ResponseMessage msg) {
+        Message aux = null;
+
         for (Message next : receivedQueue) {
             if (next.getId() == msg.getMessageId()) {
-                receivedQueue.remove(next);
                 confirmedQueue.add(next);
             }
+        }
+
+        if (aux != null) {
+            receivedQueue.remove(aux);
         }
     }
 

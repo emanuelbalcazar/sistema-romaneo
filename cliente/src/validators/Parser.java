@@ -21,7 +21,7 @@ import message.Type;
 public class Parser {
 
     private Sender sender;
-    
+
     public Parser() {
         this.sender = new Sender();
     }
@@ -43,10 +43,11 @@ public class Parser {
     }
 
     /**
-     * Genera un ack de CONFIRMADO de mensaje de texto recibido por parte del servidor.
-     * 
+     * Genera un ack de CONFIRMADO de mensaje de texto recibido por parte del
+     * servidor.
+     *
      * @param msg de texto enviado desde el servidor para el cliente.
-     * 
+     *
      */
     private void generateConfirmAck(ResponseMessage msg) {
         Message confirm = new TextMessage();
@@ -56,7 +57,7 @@ public class Parser {
         confirm.setPriority(Priority.HIGH_PRIORITY.getPriority());
         confirm.setDescription("Mensaje de TEXTO: " + msg.getText() + " CONFIRMADO por el Cliente " + msg.getImei());
         confirm.setTimestamp(new Date());
-        
+
         sender.sendMessage(confirm);
         Logger.getInstance().logInfo(confirm, "cliente", Status.CONFIRMED.getStatus(), "Mensaje de Texto: " + msg.getText());
     }
@@ -68,10 +69,31 @@ public class Parser {
     private void changeStatusMessage(ResponseMessage msg) {
         if (msg.getType().equals(Status.RECEIVED.getStatus())) {
             QueueManagement.getInstance().changeToReceivedStatus(msg);
-        }
-        else if (msg.getType().equals(Status.CONFIRMED.getStatus())) {
+            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente", Status.RECEIVED.getStatus(), "Mensaje Recibido " + msg.getType() + " " + msg.getMessageSubType());
+        } else if (msg.getType().equals(Status.CONFIRMED.getStatus())) {
             QueueManagement.getInstance().changeToConfirmedStatus(msg);
+            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente", Status.CONFIRMED.getStatus(), "Mensaje Recibido " + msg.getType() + " " + msg.getMessageSubType());
         }
     }
-    
+
+    /**
+     * Adapta un mensaje de tipo ResponseMessage.java a un mensaje valido para
+     * el Logger.
+     *
+     * @param response mensaje de respuesta del servidor.
+     * @return un mensaje que extiende de Message.java valido para ser utilizado
+     * por el Logger.
+     */
+    private Message adapteResponseMessage(ResponseMessage response) {
+        Message result = new TextMessage();  // Porque de texto? no se, pero es util.
+
+        result.setId(response.getMessageId());
+        result.setImei(response.getImei());
+        result.setType(response.getMessageType());
+        result.setSubType(response.getMessageSubType());
+        result.setDescription(response.getDescription());
+
+        return result;
+    }
+
 }

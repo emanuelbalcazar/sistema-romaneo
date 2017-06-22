@@ -40,6 +40,9 @@ public class Configuration {
     public static final String GEO_MIN_LAT = "GeolocationGenerator.minLat";
     public static final String GEO_MAX_LAT = "GeolocationGenerator.maxLat";
     public static final String GEO_DISTANCE = "GeolocationGenerator.distance";
+    
+    public static final String DEVICES_CANT = "Devices";
+    
 
     private Configuration() {
         this.properties = new Properties();

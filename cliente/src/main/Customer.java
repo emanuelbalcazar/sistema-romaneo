@@ -5,6 +5,8 @@
  */
 package main;
 
+import configuration.Configuration;
+import java.util.ArrayList;
 import simulator.MobileDevice;
 
 /**
@@ -12,13 +14,23 @@ import simulator.MobileDevice;
  * @author emanuel
  */
 public class Customer {
-    
+
     public static void main(String[] args) {
-                
-        MobileDevice mobile1 = new MobileDevice(1);
-        mobile1.start();
+        ArrayList<MobileDevice> all = new ArrayList<>();
         
-        MobileDevice mobile2 = new MobileDevice(2);
-        mobile2.start();
+        String devices = Configuration.getInstance().getProperty(Configuration.DEVICES_CANT);
+        int quantity = Integer.parseInt(devices);
+
+        for (int i = 0; i < quantity; i++) {
+            MobileDevice mobile = new MobileDevice(i);
+            all.add(mobile);
+        }
+        
+        for (MobileDevice mobile : all) {
+            mobile.start();
+        }
+        
+        System.out.println("Cantidad de dispositivos iniciados: " + all.size());
+        
     }
 }
