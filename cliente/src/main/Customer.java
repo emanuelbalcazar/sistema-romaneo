@@ -20,7 +20,7 @@ public class Customer {
         
         String devices = Configuration.getInstance().getProperty(Configuration.DEVICES_CANT);
         int quantity = Integer.parseInt(devices);
-
+                
         for (int i = 0; i < quantity; i++) {
             MobileDevice mobile = new MobileDevice(i);
             all.add(mobile);

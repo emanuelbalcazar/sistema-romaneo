@@ -41,7 +41,7 @@ public class Configuration {
     public static final String GEO_MAX_LAT = "GeolocationGenerator.maxLat";
     public static final String GEO_DISTANCE = "GeolocationGenerator.distance";
     
-    public static final String DEVICES_CANT = "Devices";
+    public static final String DEVICES_CANT = "Customer.mobiles";
     
 
     private Configuration() {
