@@ -25,6 +25,10 @@ function saveMessage(message){
 
 exports.receivedMessage = function(message) {
     // saveMessage(message);
+    setTimeout(function() {
+        console.log('Procesando mensajes de texto...');
+    }, getRandomNumber(2000, 5000));
+
     logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se recibio el mensaje de TEXTO ', message.text);
     sendConfirmMessage(message);
 }
@@ -45,4 +49,9 @@ function sendConfirmMessage(message) {
 
     logger.logTrace(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de TEXTO');
     rabbitmq.publishMessage(confirmMessage);
+}
+
+// Retorna un numero aleatorio entre un rango de numeros pasados como parametros.
+function getRandomNumber(low, high) {
+    return Math.random() * (high - low) + low;
 }

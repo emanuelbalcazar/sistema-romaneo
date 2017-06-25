@@ -20,10 +20,6 @@
             loggerSrv.findMessage($scope.messageId, $scope.messageType).then(function(records) {
                 $scope.allCandidates = records;
 
-                $scope.allCandidates.sort(function(a, b) {
-                   return a.id - b.id;
-                });
-
                 paginate();
             });
         }

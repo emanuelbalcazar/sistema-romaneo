@@ -18,6 +18,10 @@ exports.receivedMessage = function(message) {
 
     var probability = getRandomNumber(0, 100);
 
+    setTimeout(function() {
+        console.log('Procesando mensajes de romaneo...');
+    }, getRandomNumber(2000, 8000));
+
     // verifica si el mensaje posee algun error (ficticio) y genera el mensaje de error correspondiente.
     if ((probability < probError) || (message.subType == "ERROR")) {
         sendErrorMessage(message);

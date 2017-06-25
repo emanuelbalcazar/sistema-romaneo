@@ -20,9 +20,6 @@
             loggerSrv.findMessagesByMobile($scope.imei).then(function(messages) {
                 $scope.allCandidates = messages;
 
-                $scope.allCandidates.sort(function(a, b) {
-                   return a.id - b.id;
-                });
 
                 if ($scope.filterToApply != "") {
                     $scope.filter($scope.filterToApply);
