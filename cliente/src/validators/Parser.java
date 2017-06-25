@@ -70,10 +70,10 @@ public class Parser {
     private void changeStatusMessage(ResponseMessage msg) {
         if (msg.getType().equals(Status.RECEIVED.getStatus())) {
             QueueManagement.getInstance().changeToReceivedStatus(msg);
-            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente " + msg.getImei(), Status.RECEIVED.getStatus(), "Mensaje RECIBIDO " + msg.getMessageType() + " " + msg.getMessageSubType());
+            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente " + msg.getImei(), Status.RECEIVED.getStatus(), "Mensaje RECIBIDO de " + msg.getMessageType() + " " + msg.getMessageSubType());
         } else if (msg.getType().equals(Status.CONFIRMED.getStatus())) {
             QueueManagement.getInstance().changeToConfirmedStatus(msg);
-            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente: " + msg.getImei(), Status.CONFIRMED.getStatus(), "Mensaje CONFIRMADO " + msg.getMessageType() + " " + msg.getMessageSubType());
+            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente: " + msg.getImei(), Status.CONFIRMED.getStatus(), "Mensaje CONFIRMADO de " + msg.getMessageType() + " " + msg.getMessageSubType());
         }
     }
 

@@ -25,9 +25,10 @@ function saveMessage(message){
 
 exports.receivedMessage = function(message) {
     // saveMessage(message);
+    var sleep = getRandomNumber(5000, 10000);
     setTimeout(function() {
-        console.log('Procesando mensajes de texto...');
-    }, getRandomNumber(2000, 5000));
+        console.log('Procesando mensajes de texto... tiempo de espera ' + sleep);
+    }, sleep);
 
     logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se recibio el mensaje de TEXTO ', message.text);
     sendConfirmMessage(message);

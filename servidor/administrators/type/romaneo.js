@@ -18,15 +18,16 @@ exports.receivedMessage = function(message) {
 
     var probability = getRandomNumber(0, 100);
 
+    var sleep = getRandomNumber(5000, 10000);
     setTimeout(function() {
-        console.log('Procesando mensajes de romaneo...');
-    }, getRandomNumber(2000, 8000));
+        console.log('Procesando mensajes de romaneo... tiempo de espera ' + sleep);
+    }, sleep);
 
     // verifica si el mensaje posee algun error (ficticio) y genera el mensaje de error correspondiente.
     if ((probability < probError) || (message.subType == "ERROR")) {
         sendErrorMessage(message);
     } else {
-        logger.logTrace(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
+        //logger.logTrace(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
         sendConfirmMessage(message);
     }
 };
