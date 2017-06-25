@@ -14,7 +14,7 @@ exports.findResumen = function(callback) {
     logRecord.findAll({
         attributes: ['imei', 'status', [sequelize.fn('COUNT', sequelize.col('*')), 'logs']],
         group: ['imei','status'],
-        where: {source: 'cliente'}
+        where: {level: 'info'}
     }).then(function(all) {
         callback(false, all);
     });
@@ -33,7 +33,7 @@ exports.findMessagesByMobile = function(imei, callback) {
 exports.findMessage = function(id, type, callback) {
     logRecord.findAll({
         where: {messageId: id, messageType: type}
-    
+
     }).then(function(all) {
         callback(false, all);
     });
