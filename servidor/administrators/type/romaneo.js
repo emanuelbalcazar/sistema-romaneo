@@ -41,7 +41,7 @@ function sendConfirmMessage(message) {
         description: ''
     };
 
-    logger.logTrace(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de ROMANEO ' + confirmMessage.messageSubType);
+    //logger.logTrace(message, 'servidor', 'ENVIADO', 'enviado el mensaje de CONFIRMACION de ROMANEO ' + confirmMessage.messageSubType);
     rabbitmq.publishMessage(confirmMessage);
 }
 

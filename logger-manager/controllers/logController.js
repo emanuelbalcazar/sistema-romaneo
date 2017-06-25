@@ -23,7 +23,8 @@ exports.findResumen = function(callback) {
 // Retorna todos los mensajes generdos por un dispositivo movil.
 exports.findMessagesByMobile = function(imei, callback) {
     logRecord.findAll({
-        where: {imei: imei}
+        where: {imei: imei},
+        order: sequelize.col('timestamp')
     }).then(function(all) {
         callback(false, all);
     });
@@ -32,8 +33,8 @@ exports.findMessagesByMobile = function(imei, callback) {
 // Retorna todos los registros de un mensaje buscado por su id y tipo.
 exports.findMessage = function(id, type, callback) {
     logRecord.findAll({
-        where: {messageId: id, messageType: type}
-
+        where: {messageId: id, messageType: type},
+        order: sequelize.col('timestamp')
     }).then(function(all) {
         callback(false, all);
     });
