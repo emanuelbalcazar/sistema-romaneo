@@ -22,7 +22,7 @@ exports.getType = function() {
 exports.receivedMessage = function(message) {
 
     probability = getRandomNumber(0, 100);
-    sleep = getRandomNumber(5000, 20000);
+    sleep = getRandomNumber(5000, 1000);
 
     async.parallel([verify(message, sleep)], function(err, result) {
         //console.log('Async parallel with array', result);
