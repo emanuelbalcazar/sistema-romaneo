@@ -6,7 +6,12 @@ var logger = require('../../logger/logger');
 var maxPriority = require('../../config_files/message-config.json').maxPriority;
 var probError = require('../../config_files/message-config.json').probError;
 
+var async = require('async');
+var tasks = [];
+
 var id = 0; // TODO - cambiar por un id autogenerado unico.
+var probability = 0;
+var sleep = 0;
 
 // Retorna el tipo de administrador.
 exports.getType = function() {
@@ -16,21 +21,31 @@ exports.getType = function() {
 // Recibe el mensaje delegado por el administrador base.
 exports.receivedMessage = function(message) {
 
-    var probability = getRandomNumber(0, 100);
+    probability = getRandomNumber(0, 100);
+    sleep = getRandomNumber(5000, 20000);
 
-    var sleep = getRandomNumber(5000, 10000);
-    setTimeout(function() {
-        console.log('Procesando mensajes de romaneo... tiempo de espera ' + sleep);
-    }, sleep);
+    async.parallel([verify(message, sleep)], function(err, result) {
+        //console.log('Async parallel with array', result);
+    });
 
-    // verifica si el mensaje posee algun error (ficticio) y genera el mensaje de error correspondiente.
-    if ((probability < probError) || (message.subType == "ERROR")) {
-        sendErrorMessage(message);
-    } else {
-        //logger.logTrace(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
-        sendConfirmMessage(message);
+}
+
+var verify = function(message, sleep) {
+    return function(done) {
+        // task 1 completes in 100ms
+        setTimeout(function() {
+            // verifica si el mensaje posee algun error (ficticio) y genera el mensaje de error correspondiente.
+            if ((probability < probError) || (message.subType == "ERROR")) {
+                sendErrorMessage(message);
+            } else {
+                //logger.logTrace(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
+                sendConfirmMessage(message);
+            }
+            console.log('Done function ', message);
+            done(null, message);
+        }, sleep);
     }
-};
+}
 
 // Genera un mensaje de CONFIRMACION y lo envia a rabbitmq.
 function sendConfirmMessage(message) {

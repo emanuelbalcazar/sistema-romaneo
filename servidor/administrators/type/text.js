@@ -4,8 +4,12 @@
 var rabbitmq = require('../../rabbitmq/rabbitmq-api');
 var logger = require('../../logger/logger');
 var maxPriority = require('../../config_files/message-config.json').maxPriority;
-
 var id = 0;
+
+var async = require('async');
+var tasks = [];
+var probability = 0;
+var sleep = 0;
 
 exports.getType = function() {
     return 'texto';
@@ -25,13 +29,27 @@ function saveMessage(message){
 
 exports.receivedMessage = function(message) {
     // saveMessage(message);
-    var sleep = getRandomNumber(5000, 10000);
-    setTimeout(function() {
-        console.log('Procesando mensajes de texto... tiempo de espera ' + sleep);
-    }, sleep);
+    probability = getRandomNumber(0, 100);
+    sleep = getRandomNumber(5000, 20000);
 
-    logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se recibio el mensaje de TEXTO ', message.text);
+    async.parallel([verify(message, sleep)], function(err, result) {
+        //console.log('Async parallel with array', result);
+    });
+
+    //logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se recibio el mensaje de TEXTO ', message.text);
     sendConfirmMessage(message);
+}
+
+
+var verify = function(message, sleep) {
+    return function(done) {
+        // task 1 completes in 100ms
+        setTimeout(function() {
+            sendConfirmMessage(message);
+            console.log('Done function ', message);
+            done(null, message);
+        }, sleep);
+    }
 }
 
 // Genera un mensaje de CONFIRMACION y lo envia a rabbitmq.
