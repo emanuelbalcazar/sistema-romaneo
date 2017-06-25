@@ -64,7 +64,7 @@ public class Sender {
         try {
             Gson gson = new Gson();
             String messageJson = gson.toJson(msg);
-            Logger.getInstance().logInfo(msg, "cliente", Status.SENT.getStatus(), "Mensaje de " + msg.getType() + " enviado al servidor");
+            Logger.getInstance().logInfo(msg, "cliente: " + msg.getImei(), Status.SENT.getStatus(), "Mensaje de " + msg.getType() + " enviado al SERVIDOR");
 
             System.out.println("Enviado: " + messageJson);
             channel.basicPublish("", SERVER_QUEUE, null, messageJson.getBytes());

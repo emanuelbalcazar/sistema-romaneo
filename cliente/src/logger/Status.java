@@ -10,7 +10,8 @@ public enum Status {
     SENT("ENVIADO"),
     RECEIVED("RECIBIDO"),
     CONFIRMED("CONFIRMADO"),
-    ERROR("ERROR");
+    ERROR("ERROR"),
+    RESEND("REENVIAR");
     
     private String status;
     

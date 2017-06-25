@@ -42,6 +42,7 @@ public class Configuration {
     public static final String GEO_DISTANCE = "GeolocationGenerator.distance";
     
     public static final String DEVICES_CANT = "Customer.mobiles";
+    public static final String CONNECTIVITY_PROB = "Connectivity.prob";
     
 
     private Configuration() {

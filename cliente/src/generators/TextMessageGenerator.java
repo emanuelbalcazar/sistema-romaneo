@@ -60,9 +60,9 @@ public class TextMessageGenerator extends MessageGeneratorGeneric {
         msg.setImei(this.imei);
         msg.setPriority(Priority.LOW_PRIORITY.getPriority());
         msg.setType(Type.TEXT.getType());
-        msg.setOperation("2");
-        msg.setText("Mensaje de Texto: Hola Mundo");
-        Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero un mensaje de Texto");
+        msg.setOperation("");
+        msg.setText("Se me escaparon las ovejas");
+        Logger.getInstance().logInfo(msg, "cliente: " + this.imei, Status.GENERATED.getStatus(), "Se genero un mensaje de Texto " + msg.getText());
 
         management.addMessageToSend(msg);
     }

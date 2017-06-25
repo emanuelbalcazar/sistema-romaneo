@@ -59,20 +59,21 @@ public class Parser {
         confirm.setTimestamp(new Date());
 
         sender.sendMessage(confirm);
-        Logger.getInstance().logInfo(confirm, "cliente", Status.CONFIRMED.getStatus(), "Mensaje de Texto: " + msg.getText());
+        Logger.getInstance().logInfo(confirm, "cliente " + msg.getImei(), Status.CONFIRMED.getStatus(), " CONFIRMADO el Mensaje de Texto: " + msg.getText());
     }
 
     private void resendMessage(ResponseMessage msg) {
+        Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente "  + msg.getImei(), Status.RESEND.getStatus(), "Mensaje a REENVIAR " + msg.getMessageType());
         QueueManagement.getInstance().resendMessage(msg);
     }
 
     private void changeStatusMessage(ResponseMessage msg) {
         if (msg.getType().equals(Status.RECEIVED.getStatus())) {
             QueueManagement.getInstance().changeToReceivedStatus(msg);
-            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente", Status.RECEIVED.getStatus(), "Mensaje Recibido " + msg.getType() + " " + msg.getMessageSubType());
+            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente " + msg.getImei(), Status.RECEIVED.getStatus(), "Mensaje RECIBIDO " + msg.getType() + " " + msg.getMessageSubType());
         } else if (msg.getType().equals(Status.CONFIRMED.getStatus())) {
             QueueManagement.getInstance().changeToConfirmedStatus(msg);
-            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente", Status.CONFIRMED.getStatus(), "Mensaje Recibido " + msg.getType() + " " + msg.getMessageSubType());
+            Logger.getInstance().logInfo(adapteResponseMessage(msg), "cliente: " + msg.getImei(), Status.CONFIRMED.getStatus(), "Mensaje CONFIRMADO " + msg.getType() + " " + msg.getMessageSubType());
         }
     }
 

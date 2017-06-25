@@ -123,7 +123,7 @@ public class Consumer implements Runnable {
                 System.out.println(" [X] Received " + responseMessage.toString());
                 Message res = adapteResponseMessage(responseMessage);
                 System.out.println("RES " + res.toString());
-                Logger.getInstance().logTrace(res, "cliente", Status.RECEIVED.getStatus(), "Mensaje recibido de por parte del servidor.");
+                Logger.getInstance().logTrace(res, "cliente: " + res.getImei(), Status.RECEIVED.getStatus(), "Mensaje recibido por parte del SERVIDOR.");
                 parser.parseMessage(responseMessage);
             }
 

@@ -1,5 +1,6 @@
 package connectivity;
 
+import configuration.Configuration;
 import java.util.Random;
 
 /**
@@ -12,7 +13,8 @@ public class ConnectivitySimulator implements Runnable {
     private final Random rand;
     private Thread thread;
     private boolean hasConnectivity;
-
+    private final String PROB = Configuration.getInstance().getProperty(Configuration.CONNECTIVITY_PROB);
+    
     public ConnectivitySimulator() {
         this.rand = new Random();
         this.hasConnectivity = false;
@@ -48,7 +50,7 @@ public class ConnectivitySimulator implements Runnable {
     
     private void determineConectivity() {
         int value = rand.nextInt(100);
-        hasConnectivity = (value < 80);
+        hasConnectivity = (value < Integer.parseInt(PROB));
     }
     
     public boolean hasConnectivity() {

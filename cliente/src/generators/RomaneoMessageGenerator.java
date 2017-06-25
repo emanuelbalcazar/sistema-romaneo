@@ -72,7 +72,7 @@ public class RomaneoMessageGenerator extends MessageGeneratorGeneric {
      */
     private void generateMessage() {
         RomaneoMessage msg = createMessage();
-        Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero el mensaje de Romaneo " + msg.getSubType());
+        Logger.getInstance().logInfo(msg, "cliente: " + this.imei, Status.GENERATED.getStatus(), "Se genero el mensaje de Romaneo: " + msg.getSubType());
         management.addMessageToSend(msg);
     }
 

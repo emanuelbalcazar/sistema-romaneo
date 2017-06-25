@@ -78,14 +78,14 @@ public class GeolocationMessageGenerator extends MessageGeneratorGeneric {
         GeolocationMessage msg = generatorMessage();
 
         if (distanciaCoord(msg.getLatitude(), msg.getLongitude(), beforeLatitude, beforeLongitude) == true) {
-            Logger.getInstance().logInfo(msg, "cliente", Status.GENERATED.getStatus(), "Se genero el mensaje de Geolocalizacion");
+            Logger.getInstance().logInfo(msg, "cliente: " + this.imei, Status.GENERATED.getStatus(), "Se genero el mensaje de Geolocalizacion");
 
             management.addMessageToSend(msg);
             beforeLatitude = msg.getLatitude();
             beforeLongitude = msg.getLongitude();
         } else {
             System.out.println("Se encuentra en el mismo sitio, NO se enviara el mensaje");
-            Logger.getInstance().logTrace(msg, "cliente" ,Status.GENERATED.getStatus(), "Se encuentra en el mismo sitio, NO se enviara el mensaje");
+            Logger.getInstance().logTrace(msg, "cliente: " + this.imei ,Status.GENERATED.getStatus(), "Se encuentra en el mismo sitio, NO se enviara el mensaje");
         }
 
     }
