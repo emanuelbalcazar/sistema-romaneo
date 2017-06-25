@@ -44,8 +44,8 @@ function generateErrorMessage(error, message) {
         id: ++id,
         priority : maxPriority,
         type: 'error',
-        id_msg: message.id,
-        type_msg: message.type,
+        messageId: message.id,
+        messageType: message.type,
         imei: message.imei,
         description: error,
         timestamp: new Date()

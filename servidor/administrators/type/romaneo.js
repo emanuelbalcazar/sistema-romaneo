@@ -22,7 +22,7 @@ exports.receivedMessage = function(message) {
     if ((probability < probError) || (message.subType == "ERROR")) {
         sendErrorMessage(message);
     } else {
-        logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
+        logger.logTrace(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
         sendConfirmMessage(message);
     }
 };

@@ -77,7 +77,7 @@ function publishReceivedAck(message) {
         description: 'mensaje recibido por el servidor',
     };
 
-    logger.logInfo(message, 'servidor', 'RECIBIDO', 'mensaje recibido');
+    logger.logTrace(message, 'servidor', 'RECIBIDO', 'mensaje ' + message.type + ' recibido por el servidor');
     rabbitmq.publishMessage(received);
 
 }
