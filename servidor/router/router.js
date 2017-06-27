@@ -9,7 +9,6 @@ router.get('/', function(request, response) {
     response.send('Aplicacion inicializada!');
 });
 
-// ruta principal.
 router.post('/api/new', function(request, response) {
     console.log(request.body.data);
     rabbit.publishMessage(request.body.data);
@@ -17,11 +16,20 @@ router.post('/api/new', function(request, response) {
     response.sendStatus(200);
 });
 
-// ruta principal.
 router.get('/api/findAll', function(request, response) {
   var errorM = rabbit.getAllErrorMessages();
 
     response.json(errorM);
+});
+
+router.post('/api/reject', function(request, response) {
+    var errors = rabbit.reject(request.body.data);
+    response.json(errors);
+});
+
+router.post('/api/resend', function(request, response) {
+    var data = rabbit.resend(request.body.data);
+    response.json(data);
 });
 
 module.exports = router;

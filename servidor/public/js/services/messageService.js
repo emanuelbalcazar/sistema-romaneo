@@ -10,7 +10,9 @@
         // Funciones que provee el servicio.
         var service = {
             senderMsg: senderMsg,
-            findAll:findAll
+            findAll:findAll,
+            reject: reject,
+            resend: resend
         };
 
         return service;
@@ -33,6 +35,24 @@
           function error(error) {
               return error;
           });
+        }
+
+        function reject(msg) {
+            return $http.post(restApi + '/reject', {data: msg}).then(function success(response) {
+                return response.data;
+            },
+            function error(error) {
+                return error;
+            });
+        }
+
+        function resend(msg) {
+            return $http.post(restApi + '/resend', {data: msg}).then(function success(response) {
+                return response.data;
+            },
+            function error(error) {
+                return error;
+            });
         }
 
 

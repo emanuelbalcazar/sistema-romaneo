@@ -4,18 +4,33 @@
     .controller('reviewMessageCtrl', ['$scope', '$rootScope', '$location','messageSrv', reviewMessageCtrl]);
 
     // Controlador de la pantalla de mensajes.
-    function reviewMessageCtrl($scope, $rootScope, $location,messageSrv) {
+    function reviewMessageCtrl($scope, $rootScope, $location, messageSrv) {
 
-      $scope.allCandidates = [];
+        $scope.allCandidates = [];
 
-      messageSrv.findAll().then(function(response){
+        messageSrv.findAll().then(function(response){
+          $scope.allCandidates = response;
+            paginate();
+        });
 
-        $scope.allCandidates = response;
-        paginate();
-      });
+        $scope.resend = function(message) {
+            messageSrv.resend(message).then(
+                function(response) {
+                    $scope.allCandidates = response;
+                    paginate();
+                });
+        }
 
-      // Pagination
-      function paginate() {
+        $scope.reject = function(message) {
+            messageSrv.reject(message).then(
+                function(response) {
+                    $scope.allCandidates = response;
+                    paginate();
+                });
+        }
+
+        // Pagination
+        function paginate() {
          $scope.totalItems = $scope.allCandidates.length;
          $scope.currentPage = 1;
          $scope.itemsPerPage = 5;

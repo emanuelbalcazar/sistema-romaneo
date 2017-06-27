@@ -71,6 +71,8 @@ public class QueueManagement {
         for (Message next : sentQueue) {
             if (next.getId() == resend.getMessageId()) {
                 aux = next;
+                aux.setType((resend.getType().equals("ERROR") ? "ROMANEO" : ""));
+                aux.setSubType((resend.getType().equals("ERROR") ? "FARDO" : ""));
                 queueToSend.add(next);
             }
         }

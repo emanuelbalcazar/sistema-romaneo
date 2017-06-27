@@ -1,6 +1,6 @@
-<div class="panel panel-info">
+<div class="panel panel-danger">
   <!-- Default panel contents -->
-  <div class="panel-heading">Mensaje {{id}} de tipo {{type}} generado por el dispositivo {{imei}}</div>
+  <div class="panel-heading">Mensajes erroneos</div>
   <div class="panel-body">
         <h4>Mostrando {{aCandidates.length}} de {{allCandidates.length}} registros.</h4>
   </div>
@@ -11,20 +11,33 @@
           <tr>
               <th>Id</th>
               <th>Imei</th>
-              <th>Prioridad</th>
               <th>Tipo</th>
               <th>SubTipo</th>
+              <th>Descripción</th>
               <th>Timestamp</th>
+              <th>Acción</th>
           </tr>
           </thead>
 
           <tr ng-repeat="msg in aCandidates">
-              <td>{{msg.id}}</td>
+              <td>{{msg.messageId}}</td>
               <td>{{msg.imei}}</td>
-              <td>{{msg.priority}}</td>
-              <td>{{msg.type}}</td>
+              <td>{{msg.messageType}}</td>
               <td>{{msg.subType}}</td>
+              <td>{{msg.description}}</td>
               <td>{{msg.timestamp}}</td>
+              <td>
+                <button type="button" class="btn btn-info" data-ng-click="resend(msg)">
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                    &nbsp;Solicitar
+                </button>
+
+                <button type="button" class="btn btn-danger" data-ng-click="reject(msg)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    &nbsp;Descartar
+                </button>
+
+              </td>
           </tr>
     </table>
 </div>

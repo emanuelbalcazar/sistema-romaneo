@@ -13,19 +13,19 @@ amqp.connect(serverUrl, function(err, conn) {
     if (err) throw err;
 
     var message = {
-      id:1,
-      imei: 1,
-      priority: 4,
-      type: 'ERROR',
-      subType:'',
-      operation:'',
-      timestamp: new Date()  
+        id: 1,
+        type: 'ERROR',
+        messageId: 3,
+        messageType: 'ROMANEO',
+        messageSubType: 'FARDO',
+        imei: 0,
+        description: 'no se pudo generar la sentencia debido a un error de transaccion'
     }
 
-        conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
-            ch.assertQueue(errorsQueue, {durable: true});
-            ch.sendToQueue(errorsQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
-
-        });
+    conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
+        ch.assertQueue(errorsQueue, {durable: true});
+        ch.sendToQueue(errorsQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
+        console.log('Mensaje de error enviado ', message);
+    });
 
 });

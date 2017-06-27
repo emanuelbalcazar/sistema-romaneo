@@ -29,14 +29,11 @@ function saveMessage(message){
 
 exports.receivedMessage = function(message) {
     // saveMessage(message);
-    probability = getRandomNumber(0, 100);
-    sleep = getRandomNumber(5000, 10000);
+    sleep = getRandomNumber(3000, 10000);
 
     async.parallel([verify(message, sleep)], function(err, result) {
         //console.log('Async parallel with array', result);
     });
-
-    //logger.logInfo(message, 'servidor', 'CONFIRMADO', 'se recibio el mensaje de TEXTO ', message.text);
 }
 
 
@@ -45,7 +42,6 @@ var verify = function(message, sleep) {
         // task 1 completes in 100ms
         setTimeout(function() {
             sendConfirmMessage(message);
-            console.log('Done function ', message);
             done(null, message);
         }, sleep);
     }

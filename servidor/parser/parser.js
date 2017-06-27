@@ -20,7 +20,11 @@ exports.setMessage = function(message) {
         validateTypeMessage(message);
     } else {
         generateErrorMessage(ajv.errorsText(), message);
+    }
 
+    if (message.subType || message.subType == 'ERROR') {
+        var error = 'el formato del mensaje es invalido';
+        generateErrorMessage(error, message);
     }
 };
 
@@ -43,7 +47,7 @@ function generateErrorMessage(error, message) {
     var errorMessage = {
         id: ++id,
         priority : maxPriority,
-        type: 'error',
+        type: 'ERROR',
         messageId: message.id,
         messageType: message.type,
         imei: message.imei,

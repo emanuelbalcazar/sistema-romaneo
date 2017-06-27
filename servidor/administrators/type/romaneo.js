@@ -22,7 +22,7 @@ exports.getType = function() {
 exports.receivedMessage = function(message) {
 
     probability = getRandomNumber(0, 100);
-    sleep = getRandomNumber(5000, 1000);
+    sleep = getRandomNumber(5000, 10000);
 
     async.parallel([verify(message, sleep)], function(err, result) {
         //console.log('Async parallel with array', result);
@@ -35,13 +35,12 @@ var verify = function(message, sleep) {
         // task 1 completes in 100ms
         setTimeout(function() {
             // verifica si el mensaje posee algun error (ficticio) y genera el mensaje de error correspondiente.
-            if ((probability < probError) || (message.subType == "ERROR")) {
+            if ((probability < probError)) {
                 sendErrorMessage(message);
             } else {
                 //logger.logTrace(message, 'servidor', 'CONFIRMADO', 'se genero la sentencia INSERT en la tabla ROMANEO ' + message.subType);
                 sendConfirmMessage(message);
             }
-            console.log('Done function ', message);
             done(null, message);
         }, sleep);
     }
@@ -76,7 +75,7 @@ function sendErrorMessage(message) {
         messageType: message.type,
         messageSubType: message.subType || '',
         imei: message.imei,
-        description: 'no se pudo generar la sentencia debido a un error'
+        description: 'no se pudo generar la sentencia debido a un error de transaccion'
     };
 
     logger.logError(errorMessage, 'servidor', 'ERROR', 'no se pudo generar la sentencia debido a un error de transacción');

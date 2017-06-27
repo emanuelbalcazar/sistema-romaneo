@@ -136,7 +136,7 @@ exports.publishMessageError = function(message){
           conn.createChannel(function(err, ch) {  // creo un canal de comunicacion
               ch.assertQueue(errorsQueue, {durable: true});
               ch.sendToQueue(errorsQueue, new Buffer(JSON.stringify(message)));   // publico el mensaje
-              console.log("\n [x] Publicada en la cola de enviados %s", JSON.stringify(message));
+              console.log("\n [x] Publicada en la cola de error %s", JSON.stringify(message));
           });
       });
 }
@@ -168,8 +168,6 @@ exports.consumerMessageSend = function(message){
               ch.consume(enviadosQueue, function(msg) { // consumo un mensaje
                   var message = JSON.parse(msg.content);
                   console.log(" [x] Recibido %s ", JSON.stringify(message));
-                  //parser.setMessage(message);
-                  //publishReceivedAck(message);
                   publishMessageConfirm(message);
               }, {noAck: true});
           });
@@ -178,6 +176,41 @@ exports.consumerMessageSend = function(message){
 
 // Inicia el consumo de mensajes desde la cola del servidor en RabbitMQ.
 exports.getAllErrorMessages = function() {
-
     return msgError;
 };
+
+exports.reject = function(message) {
+    var removed = [];
+
+    for (var i = 0; i < msgError.length; i++) {
+        if (message.messageId != msgError[i].messageId) {
+            removed.push(msgError[i]);
+        }
+    }
+    msgError = removed;
+    return msgError;
+}
+
+exports.resend = function(message) {
+    for (var i = 0; i < msgError.length; i++) {
+        if (message.messageId == msgError[i].messageId) {
+            resendMessage(message);
+        }
+    }
+    return msgError;
+}
+
+function resendMessage(message) {
+    var resend = {
+        id: ++id,
+        priority : maxPriority,
+        type: 'REENVIAR',
+        messageId: message.id,
+        messageType: message.type,
+        messageSubType: message.subType || '',
+        imei: message.imei,
+        description: ''
+    }
+    rabbitmq.publishMessage(resend);
+    rabbitmq.reject(message);
+}
