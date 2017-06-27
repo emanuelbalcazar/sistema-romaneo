@@ -2,9 +2,24 @@
   <label for="comment">Escribir Mensaje:</label>
   <textarea ng-model="message" class="form-control" rows="10" id="comment"></textarea>
 </div>
-<div class="text-right form-group">
-    <button class="btn btn-primary" ng-click="resetLayer()">Limpiar</button>
-    <button class="btn btn-primary" ng-click="sendMessage()">Enviar Mensaje</button>
+
+<div class="container">
+  <div class="row">
+    <div class=".col-xs">
+      <label for="comment">Equipo:</label>
+    </div>
+  <select ng-model="equipo" class="col-md-4">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+  </select>
+    <div class="text-right form-group">
+      <button class="btn btn-primary" ng-click="resetLayer()">Limpiar</button>
+      <button class="btn btn-primary" ng-click="sendMessage()">Enviar Mensaje</button>
+    </div>
+  </div>
 </div>
 <div class="alert alert-success alert-dismissable" ng-show = 'showSuccess'>
   <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
